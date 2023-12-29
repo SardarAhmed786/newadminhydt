@@ -279,10 +279,10 @@
             }
         }
     }
-    .pagi .formobilepegi{
-        display: none !important;
-    }
-  
+   
+  .formbl{
+    display: none;
+  }
 }
 
 @media(max-width:600px) {
@@ -291,6 +291,9 @@
         align-items: flex-start;
         width: 100%;
     }
+    .formbl{
+        display: block !important;
+      }
 .main-earn .mainssss .parentbtn .reject{
     width: 118.5px;
 }
@@ -305,8 +308,9 @@
     .main-earn .mainssss .nav.nav-pills {
         width: 100%;
     }
-    .main-earn .pagi{
+    .main-earn .formbl .pagi {
         justify-content: center;
+   
     }
     .main-earn .maincard {
         display: none;
@@ -465,3 +469,4 @@
         }
     }
 }
+

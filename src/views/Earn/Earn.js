@@ -467,7 +467,7 @@ const Earn = () => {
                     </div>
                     
                   </div>
-                  <div className="pagi">
+                  <div className="pagi formbl">
                       <div className="left">
                       </div>
                       <div className="right">
@@ -655,7 +655,7 @@ const Earn = () => {
                       </div>
 
                     </div>
-                    <div className="pagi formobilepegi">
+                    <div className="pagi ">
                       <div className="left">
                       </div>
                       <div className="right">
@@ -916,7 +916,7 @@ const Earn = () => {
                     </div>
                     
                   </div>
-                  <div className="pagi formobilepegi">
+                  <div className="pagi formbl">
                       <div className="left">
                       </div>
                       <div className="right">
@@ -1104,7 +1104,7 @@ const Earn = () => {
                       </div>
 
                     </div>
-                    <div className="pagi formobilepegi">
+                    <div className="pagi ">
                       <div className="left">
                       </div>
                       <div className="right">
@@ -1365,7 +1365,7 @@ const Earn = () => {
                     </div>
                     
                   </div>
-                  <div className="pagi formobilepegi">
+                  <div className="pagi  formbl ">
                       <div className="left">
                       </div>
                       <div className="right">

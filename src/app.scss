@@ -1,0 +1,130 @@
+
+@import "~bootstrap/scss/bootstrap";
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+.rounded-full {
+    border-radius: 50%;
+}
+
+.ml-2x{
+    margin-left: 2px;
+  }
+  
+  .ml-6x{
+    margin-left: 6px;
+  }
+  
+
+
+// .btn-common-pur:hover {
+//     opacity: 0.75;
+//     color: white;
+// }
+
+
+iframe{
+    position: unset !important;
+    top: unset !important;
+    left: unset !important;
+    width: unset !important;
+    height: unset !important;
+    border: unset !important;
+    z-index: unset !important;
+}
+
+.ml-15{
+    margin-left: 15px;
+}
+
+
+.offcanvas{
+    background: #1E1E1E;
+    z-index: 99999;
+}
+.offcanvas.offcanvas-start{
+    left: unset !important;
+    right: 0;
+    transform: translateX(0) !important;
+}
+.offcanvas-backdrop.show{
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    opacity: 1;
+}
+.offcanvas-header .btn-close{
+    background: url("./close-circle.svg");
+    background-size: cover;
+    opacity: 1;
+}
+.btn-close:focus{
+    box-shadow: none !important;
+}
+.navbar-toggler:focus{
+    box-shadow: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.btn:focus, .btn.focus{
+    box-shadow: none !important;
+}
+
+.table-responsive{
+    &::-webkit-scrollbar{
+        display: none !important;
+    }
+}
+
+.offcanvas-body{
+    &::-webkit-scrollbar{
+        display: none !important;
+    }
+}
+
+.customerdetail .table-customer{
+    &::-webkit-scrollbar{
+        display: none !important;
+    }
+}
+.customer .table-customer{
+    &::-webkit-scrollbar{
+        display: none !important;
+    }
+}
+.promo .table-customer{
+    &::-webkit-scrollbar{
+        display: none !important;
+    }
+}
+.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl{
+    --bs-offcanvas-width: 470px !important;
+}
+
+@media (max-width:600px){
+    .offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl{
+        --bs-offcanvas-width: 100% !important;
+    }
+    .padd-sm{
+        padding: 0 !important;
+    }
+    .ml-15{
+        margin-left: 0 !important;
+    }
+    
+}
+

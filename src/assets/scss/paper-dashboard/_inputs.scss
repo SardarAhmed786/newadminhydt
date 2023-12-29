@@ -1,0 +1,189 @@
+
+.form-group {
+    input {
+      // background: #FFFFFF;
+      // border: 1px solid #d1cce085!important;
+      // box-sizing: border-box;
+      // border-radius: 10px;
+      // height: 58px!important;
+      // padding: 10px 15px;
+      // color: #171B1C!important;
+    }
+  }
+.choose-filessss{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .style-actionn{
+    width: 70px;
+    padding-left: 10px;
+    padding-top: 2px;
+  }
+}
+  .custom-file-inputt {
+    color: transparent;
+    width: 100px;
+    background-color: transparent!important;
+    border: none!important;
+    box-sizing: unset!important;
+    border-radius: 0px!important;
+    height: 14px!important;
+  }
+  .custom-file-inputt::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-inputt::before {
+    content: 'Browser';
+    color: #901CEE;
+    display: inline-block;
+    background: transparent;
+    outline: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    padding-top: 8px;
+    text-align: center;
+    font-family: 'Nunito'!important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px!important;
+  }
+  .custom-file-inputt:hover::before {
+    border-color: #353945;
+  }
+  .custom-file-inputt:active {
+    outline: 0;
+  }
+  .custom-file-inputt:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  }
+
+  // .main-header-top-change .button-header-nav.pad-rihgtt{
+  //   padding-left: 50px!important;
+  // }
+  // .main-header-top-change .button-header-nav.pad-rihgt{
+  //   margin-right: 50px!important;
+  // }
+  .main-header-top-change .button-header-nav{
+    background-color: #ffffff;
+    outline: none;
+    border: 1px solid #cfcbcb;
+    width: 145px;
+    height: 45px;
+    border-radius: 10px;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #4F4E69;
+    margin-right: 20px;
+    margin-left: 20px;
+    transition: .4s ease-in-out;
+    &:hover{
+        box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
+    }
+}
+.main-header-top-change .button-header-filter{
+    background-color: #ffffff;
+    outline: none;
+    border: 1px solid #cfcbcb;
+    width: 145px;
+    height: 45px;
+    border-radius: 10px;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #4F4E69;
+    transition: .4s ease-in-out;
+    &:hover{
+        box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
+    }
+}
+
+.main-header-top-change .blue-add-category{
+  background: linear-gradient(180deg, #133572 0%, #3568C1 100%);
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 151px;
+  height: 45px;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+  margin-left: 20px;
+  transition: .4s ease-in-out;
+  &:hover{
+      box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
+  }
+  
+}
+
+
+.input-design{
+  background: #FFFFFF;
+  border: 2px solid #ece9f5d5!important;
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 58px!important;
+  padding: 10px 15px;
+  color: #171B1C!important;
+  &::placeholder{
+    color: #e3e0e9e5!important;
+  }
+}
+.input-designss{
+  background: #FFFFFF;
+  border: 2px solid #ece9f5d5!important;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 10px 15px;
+  color: #171B1C!important;
+  &::placeholder{
+    color: #e3e0e9e5!important;
+  }
+}
+.main-button{
+  label{
+  font-family: 'Nunito'!important;
+  font-style: normal!important;
+  font-weight: 600!important;
+  font-size: 16px!important;
+  line-height: 19px!important;
+  color: #171B1C!important;
+}
+}
+
+.MuiOutlinedInput-input{
+  background: #FFFFFF;
+  // border: 2px solid #ece9f5d5!important;
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 20px!important;
+  padding: 10px 15px;
+  color: #171B1C!important;
+  &::placeholder{
+    color: #e3e0e9e5!important;
+  }
+}
+.MuiOutlinedInput-notchedOutline{
+
+//  &:hover{
+//    border-color: red;
+//  }
+   border: 2px solid #ece9f5d5!important;
+}   
+.MuiOutlinedInput-root{
+  border-radius: 10px!important;
+  // border: 2px solid #ece9f5d5!important;
+}
+
+// .MuiInputBase-input 
+
+// .MuiInputBase-root.Mui-focused{
+// border-color: red;
+// }

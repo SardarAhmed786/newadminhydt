@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600&display=swap');
+
+body {
+  color: $black-color;
+  font-size: $font-size-base;
+  font-family: $sans-serif-family;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Archivo', sans-serif !important;
+  background: #111213 !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+}
+
+.p0 {
+  padding: 0px;
+}
+
+// All transitions
+// div,ul,a,p,h1,h2,h3,h4,h5,h6,span,button {
+//   -webkit-transition: background-color 1s ease-out;
+//   -moz-transition: background-color 1s ease-out;
+//   -o-transition: background-color 1s ease-out;
+//   transition: background-color 1s ease-out;
+// }
+
+textarea {
+  resize: none;
+  height: 60px;
+  width: 100%;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0;
+}
+
+.grey {
+  color: #979797 !important;
+}
+
+.ptb20 {
+  padding: 20px 0;
+}
+
+.black {
+  color: #000000;
+}
+
+.darkgray {
+  color: #171b1c;
+}
+
+.common {
+  color: #901cee;
+}
+
+.green {
+  color: #6dff39;
+}
+
+.red {
+  color: #ea3943;
+}
+
+.white {
+  color: #fff;
+}
+
+.blue {
+  color: #133572;
+}
+
+.switch {
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-top: 14px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cfcfd0;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  input {
+    transition: 0.3s linear;
+    &::placeholder {
+        color: #414141;
+    }
+    &:focus {
+      border: 1px solid #1777E2;
+    }
+
+    &:hover {
+      border: 1px solid #153C68;
+    }
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  input:checked+.slider {
+    background: #1fa5ff;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #1fa5ff;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+}
+
+.table {
+  thead {
+    text-align: left;
+
+    tr {
+      th {
+        border-bottom: none;
+        border-top: none;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #7a7b96 !important;
+        white-space: nowrap;
+        border-bottom: 2px solid #2c2d49;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+
+      // border-bottom: 1px solid #dee2e6;
+      td {
+        text-align: left;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        text-transform: uppercase;
+        color: #7a7b96 !important;
+        line-height: 58px;
+        white-space: nowrap;
+        border-top: none !important;
+      }
+
+      .complete {
+        color: #2cc84a;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.circle {
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  background: #ffd12c;
+  border-radius: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-brand {
+    margin-left: 15px;
+  }
+
+  .navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    outline: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  h2 {
+    font-size: 2.5rem !important;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .ptb {
+    padding: 20px 0;
+  }
+
+  .xs-0 {
+    padding: 0px;
+  }
+}
+
+// 12 pro
+@media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+  .nav-brand {
+    margin-left: 15px;
+  }
+
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  h2 {
+    font-size: 2.5rem !important;
+    font-weight: bold;
+  }
+
+  .ptb {
+    padding: 20px 0;
+  }
+}
+
+// 12 pro max
+@media only screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
+  .nav-brand {
+    margin-left: 15px;
+  }
+
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  h2 {
+    font-size: 2.5rem !important;
+    font-weight: bold;
+  }
+
+  .ptb {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .table thead tr th {
+    padding: 0 15px !important;
+  }
+
+  .table tbody tr td {
+    padding: 0 15px !important;
+  }
+
+  .content .table>thead>tr>th {
+    padding: 0 15px !important;
+  }
+
+  .content .table>tbody>tr>td {
+    padding: 0 15px !important;
+  }
+}
+
+.table> :not(caption)>*>* {
+  border-bottom-width: 0 !important;
+  box-shadow: none !important;
+}
+
+.product_list .table tbody tr td {
+  line-height: 40px !important;
+}
+
+.product_list .table thead tr th {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #767676 !important;
+}
+
+.product_list .table tbody tr td {
+  line-height: 40px !important;
+  color: #fff !important;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  /* line-height: 100%; */
+  color: #FFFFFF;
+
+}
+
+.product_list .table thead tr th {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #767676 !important;
+}
+
+.product_list .table tbody tr .id {
+  color: #767676 !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+
+  text-transform: uppercase;
+}
+
+.tablerow {
+  border-bottom: 1px solid #292929 !important;
+}

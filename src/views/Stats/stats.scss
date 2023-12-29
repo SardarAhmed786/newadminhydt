@@ -1,0 +1,178 @@
+.stats {
+    .main-heading {
+        margin-bottom: 25px;
+
+        h4 {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 24px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+    }
+
+    .main-graph {
+        background: #141516;
+        border: 1px solid #1B1C1D;
+        border-radius: 10px;
+        padding: 5px;
+        margin-bottom: 20px;
+
+        .upper-heading {
+            padding: 23px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            .twice-tab {
+                background: #141516;
+                border: 1px solid #1B1C1D;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 5px;
+                max-width: 310px;
+    
+                a {
+                    background: transparent;
+                    border-radius: 7px;
+                    padding: 15px 31.5px;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 15px;
+                    text-align: center;
+                    color: #FFFFFF;
+                    white-space: nowrap;
+    
+                    &:hover {
+                        background: #1777E2;
+                    }
+                    &.active{
+                        background: #1777E2;
+                    }
+                }
+                .graph {
+                    padding: 0 28px;
+                   
+                }
+            }
+
+            h6 {
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 20px;
+                color: #FFFFFF;
+            }
+                
+        }
+
+        .bottom-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            padding: 0 28px;
+
+            .left {
+                background: #141516;
+                border: 1px solid #191A1B;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 5px;
+
+                a {
+                    background: transparent;
+                    border-radius: 7px;
+                    padding: 8px 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 15px;
+                    text-align: center;
+                    color: #FFFFFF;
+
+                    &:hover {
+                        background: #1777E2;
+                    }
+                    &.active{
+                        background: #1777E2;
+                    }
+                }
+            }
+
+            .right {
+                background: #141516;
+                border: 1px solid #191A1B;
+                border-radius: 8px;
+                padding: 5px;
+
+                a {
+                    background: transparent;
+                    border-radius: 7px;
+                    padding: 8px 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 15px;
+                    text-align: center;
+                    color: #FFFFFF;
+
+                    &:hover {
+                        background: #1777E2;
+                    }
+                    &.active{
+                        background: #1777E2;
+                    }
+                }
+            }
+        }
+
+        .graph {
+            padding: 0 28px;
+        }
+    }
+}
+
+@media (max-width:600px){
+    .stats .main-graph .bottom-heading{
+        padding: 0 5px;
+    }
+    .stats .main-graph .graph{
+        padding: 0 5px;
+    }
+    .stats .main-heading h4{
+        font-size: 20px;
+    }
+    .stats .main-graph .upper-heading h6{
+        font-size: 16px;
+    }
+    .stats .main-graph .bottom-heading .left a{
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    .stats .main-graph .bottom-heading .right a{
+        font-size: 12px;
+    }
+    .stats .main-graph .upper-heading .twice-tab a{
+        white-space: nowrap;
+    }
+}
+
+// .histroy{
+//     .yrxtxryxxtxr{
+//         background: #1777E2 !important;
+//     }
+//         a{
+//             &:hover {
+//                 background: #1777E2;
+//             }
+//             &.active{
+//                 background: #1777E2;
+//             }
+//         }
+// }

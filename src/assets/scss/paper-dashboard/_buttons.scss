@@ -1,0 +1,87 @@
+// .common-button{
+//     background-color: #ffffff;
+//     outline: none;
+//     box-shadow: none;
+//     border-radius: 10px;
+//     font-size: 18px;
+//     border: none;
+//     width: 145px;
+//     height: 45px;
+// }
+// .main-header-top-change .button-header-nav{
+//     background-color: #ffffff;
+//     outline: none;
+//     border: none;
+//     width: 145px;
+//     height: 45px;
+//     border-radius: 10px;
+//     font-family: 'Nunito';
+//     font-style: normal;
+//     font-weight: 600;
+//     font-size: 14px;
+//     line-height: 19px;
+//     color: #4F4E69;
+//     margin-right: 20px;
+//     margin-left: 20px;
+//     transition: .4s ease-in-out;
+//     &:hover{
+//         box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
+//     }
+// }
+// .main-header-top-change .button-header-filter{
+//     background-color: #ffffff;
+//     outline: none;
+//     border: none;
+//     width: 145px;
+//     height: 45px;
+//     border-radius: 10px;
+//     font-family: 'Nunito';
+//     font-style: normal;
+//     font-weight: 600;
+//     font-size: 14px;
+//     line-height: 19px;
+//     color: #4F4E69;
+//     transition: .4s ease-in-out;
+//     &:hover{
+//         box-shadow: 0 0.1rem 0.5rem rgb(194, 194, 199);
+//     }
+// }
+
+
+
+
+.btn-wallet {
+    background: #1777E2;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    color: #FFFFFF;
+    padding: 16px;
+    border: none;
+    transition: 0.3s linear;
+    &:hover{
+        background: #0076F9;
+        box-shadow: 0px 4px 9px rgba(23, 119, 226, 0.2);
+        border-radius: 6px;
+    }
+}
+
+.btn-transparent{
+    background: #111213;
+    border: 1px solid #2C2C2C;
+    border-radius: 6px;
+    padding: 16px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    color: #1777E2;
+    transition: 0.3s linear;
+    &:hover{
+        background: #141618;
+        border: 1px solid #1777E2;
+        border-radius: 6px;
+    }
+}

@@ -1,0 +1,22 @@
+.card{
+  background: #181936;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.02);
+  border-radius: 20px;
+  color: $card-black-color;
+  padding: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  border: 0 none;
+  border-radius: 10px;
+  -webkit-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  -moz-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  -o-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  -ms-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+}
+.cards{
+  background: #FFFFFF;
+  box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+  padding: 40px;
+}

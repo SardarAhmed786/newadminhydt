@@ -5,6 +5,8 @@ import Farm from "views/Farm/Farm";
 
 import Initialmint from "views/initialmint/Initialmint.js";
 import Mintredeem from "views/Mintredeem/Mintredeem";
+import Allusers from "views/Allusers/Allusers";
+import Rates from "views/Rates/Rates";
 
 
 
@@ -24,15 +26,15 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/stats",
-    name: "Stats",
-    component: Stats,
+    path: "/allusers",
+    name: "Allusers",
+    component: Allusers,
     layout: "/admin",
   },
   {
-    path: "/farm",
-    name: "Farm",
-    component: Farm,
+    path: "/rates",
+    name: "Rates",
+    component: Rates,
     layout: "/admin",
   },
 {

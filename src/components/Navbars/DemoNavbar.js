@@ -6,7 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-
+// import Signature from "../../hooks/dataSenders/userSign";
+import Envirnoment from '../../utils/environment'
 import {
   Collapse,
   Navbar,
@@ -21,6 +22,7 @@ import {
 
 import routes from "routes.js";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Header(props) {
   function importAll(r) {
@@ -37,6 +39,7 @@ function Header(props) {
   const [brandName, setbrandName] = React.useState();
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
+  // const { userSign } = Signature()
   const sidebarToggle = React.useRef();
   const location = useLocation();
   const { account } = useWeb3React();
@@ -98,12 +101,12 @@ function Header(props) {
     }
   };
   const trustWallet = async () => {
-    localStorage.setItem("connectorId", "walletconnect");
-    if (account) {
-      logout();
-    } else {
-      login("walletconnect");
-    }
+    // localStorage.setItem("connectorId", "walletconnect");
+    // if (account) {
+    //   logout();
+    // } else {
+    //   login("walletconnect");
+    // }
   };
   const connectwallet = () => {
     if (account) {
@@ -128,7 +131,55 @@ function Header(props) {
   const handleClosedis = () => setShowdis(false);
   const handleShowdis = () => setShowdis(true);
   console.log("ddddd",account);
+  const signIn = async () => {
+    if (account) {
+      // setLoader(true)
+      try {
+        const sign = '0x2c4ccf62d2b44d2857287ab2b333ceaa8d7b3403475c90427d01079e8102f8356a0e52e3d2bb208a933b39ab411b67f5676c2d0adbe2704231f0bb565735de6a1b'
+        let data = {
+          sign: sign?.toLowerCase(), walletAddress: account?.toLowerCase()
+        }
+        var config = {
+          method: "post",
+          url: `${Envirnoment.apiUrl}auth/signin`,
+          data: data
+        };
+        axios(config)
+          .then(function (response) {
+            // setLoader(false)
+            toast.success(response?.data?.message);
+            localStorage.setItem('accessToken', response?.data?.data?.accessToken)
+            localStorage.setItem("refreshToken", response?.data?.data?.refreshToken);
+            localStorage.setItem('user', JSON.stringify(response?.data?.data))
+            props.setBool(!props.bool)
+          }).catch(async function (error) {
+            // setLoader(false)
+            // toast.error(error?.response?.data?.message)
+            // const connectorId = window.localStorage.getItem("connectorId")
+            // await logout(connectorId);
+            // localStorage.setItem("flag", false)
+          });
+      } catch (error) {
+        // console.log('error', error)
+        toast.error('User Denied Sign')
+        // setLoader(false)
+        const connectorId = window.localStorage.getItem("connectorId")
+       await  logout(connectorId);
+        localStorage.setItem("flag", false)
+        localStorage.clear()
+      }
+    }
+  }
+  useEffect(() => {
+    if (account) {
+      let user = JSON.parse(localStorage.getItem("user"))
+      if (!user) {
+        signIn()
+      }
 
+    }
+
+  }, [account])
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <div className="main-navbar">

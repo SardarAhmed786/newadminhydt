@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./style.scss";
 import { useHistory } from "react-router-dom";
-
+import { useWeb3React } from "@web3-react/core";
 import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import logo from "../../assets/img/logo.svg";
 import routes from "routes.js";
 import { Modal } from "react-bootstrap";
-import { useWeb3React } from "@web3-react/core";
 import useAuth from "hooks/useAuth";
 
 var ps;
@@ -139,8 +138,73 @@ function Sidebar(props) {
               <p className="">Commissions</p>
             </Link>
           </li>
+          <li>
+            <Link
+              to={`/admin/allusers`}
+              className={
+                "nav-link " + (brandName === "Allusers" ? "active" : "")
+              }
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="iconns">
+                <path d="M18.0003 7.90977C17.9703 7.90977 17.9503 7.90977 17.9203 7.90977H17.8703C15.9803 7.84977 14.5703 6.38977 14.5703 4.58977C14.5703 2.74977 16.0703 1.25977 17.9003 1.25977C19.7303 1.25977 21.2303 2.75977 21.2303 4.58977C21.2203 6.39977 19.8103 7.85977 18.0103 7.91977C18.0103 7.90977 18.0103 7.90977 18.0003 7.90977ZM17.9003 2.74977C16.8903 2.74977 16.0703 3.56977 16.0703 4.57977C16.0703 5.56977 16.8403 6.36977 17.8303 6.40977C17.8403 6.39977 17.9203 6.39977 18.0103 6.40977C18.9803 6.35977 19.7303 5.55977 19.7403 4.57977C19.7403 3.56977 18.9203 2.74977 17.9003 2.74977Z" fill="#555555" />
+                <path d="M18.0085 15.2806C17.6185 15.2806 17.2285 15.2506 16.8385 15.1806C16.4285 15.1106 16.1585 14.7206 16.2285 14.3106C16.2985 13.9006 16.6885 13.6306 17.0985 13.7006C18.3285 13.9106 19.6285 13.6806 20.4985 13.1006C20.9685 12.7906 21.2185 12.4006 21.2185 12.0106C21.2185 11.6206 20.9585 11.2406 20.4985 10.9306C19.6285 10.3506 18.3085 10.1206 17.0685 10.3406C16.6585 10.4206 16.2685 10.1406 16.1985 9.73063C16.1285 9.32063 16.3985 8.93064 16.8085 8.86064C18.4385 8.57064 20.1285 8.88063 21.3285 9.68063C22.2085 10.2706 22.7185 11.1106 22.7185 12.0106C22.7185 12.9006 22.2185 13.7506 21.3285 14.3506C20.4185 14.9506 19.2385 15.2806 18.0085 15.2806Z" fill="#555555" />
+                <path d="M5.97047 7.91C5.96047 7.91 5.95047 7.91 5.95047 7.91C4.15047 7.85 2.74047 6.39 2.73047 4.59C2.73047 2.75 4.23047 1.25 6.06047 1.25C7.89047 1.25 9.39047 2.75 9.39047 4.58C9.39047 6.39 7.98047 7.85 6.18047 7.91L5.97047 7.16L6.04047 7.91C6.02047 7.91 5.99047 7.91 5.97047 7.91ZM6.07047 6.41C6.13047 6.41 6.18047 6.41 6.24047 6.42C7.13047 6.38 7.91047 5.58 7.91047 4.59C7.91047 3.58 7.09047 2.75999 6.08047 2.75999C5.07047 2.75999 4.25047 3.58 4.25047 4.59C4.25047 5.57 5.01047 6.36 5.98047 6.42C5.99047 6.41 6.03047 6.41 6.07047 6.41Z" fill="#555555" />
+                <path d="M5.96 15.2806C4.73 15.2806 3.55 14.9506 2.64 14.3506C1.76 13.7606 1.25 12.9106 1.25 12.0106C1.25 11.1206 1.76 10.2706 2.64 9.68063C3.84 8.88063 5.53 8.57064 7.16 8.86064C7.57 8.93064 7.84 9.32063 7.77 9.73063C7.7 10.1406 7.31 10.4206 6.9 10.3406C5.66 10.1206 4.35 10.3506 3.47 10.9306C3 11.2406 2.75 11.6206 2.75 12.0106C2.75 12.4006 3.01 12.7906 3.47 13.1006C4.34 13.6806 5.64 13.9106 6.87 13.7006C7.28 13.6306 7.67 13.9106 7.74 14.3106C7.81 14.7206 7.54 15.1106 7.13 15.1806C6.74 15.2506 6.35 15.2806 5.96 15.2806Z" fill="#555555" />
+                <path d="M12.0003 15.3805C11.9703 15.3805 11.9503 15.3805 11.9203 15.3805H11.8703C9.98031 15.3205 8.57031 13.8605 8.57031 12.0605C8.57031 10.2205 10.0703 8.73047 11.9003 8.73047C13.7303 8.73047 15.2303 10.2305 15.2303 12.0605C15.2203 13.8705 13.8103 15.3305 12.0103 15.3905C12.0103 15.3805 12.0103 15.3805 12.0003 15.3805ZM11.9003 10.2205C10.8903 10.2205 10.0703 11.0405 10.0703 12.0505C10.0703 13.0405 10.8403 13.8405 11.8303 13.8805C11.8403 13.8705 11.9203 13.8705 12.0103 13.8805C12.9803 13.8305 13.7303 13.0305 13.7403 12.0505C13.7403 11.0505 12.9203 10.2205 11.9003 10.2205Z" fill="#555555" />
+                <path d="M12.0013 22.7607C10.8013 22.7607 9.60125 22.4507 8.67125 21.8207C7.79125 21.2307 7.28125 20.3907 7.28125 19.4907C7.28125 18.6007 7.78125 17.7407 8.67125 17.1507C10.5412 15.9107 13.4713 15.9107 15.3313 17.1507C16.2113 17.7407 16.7213 18.5807 16.7213 19.4807C16.7213 20.3707 16.2213 21.2307 15.3313 21.8207C14.4013 22.4407 13.2013 22.7607 12.0013 22.7607ZM9.50125 18.4107C9.03125 18.7207 8.78125 19.1107 8.78125 19.5007C8.78125 19.8907 9.04125 20.2707 9.50125 20.5807C10.8513 21.4907 13.1413 21.4907 14.4913 20.5807C14.9613 20.2707 15.2113 19.8807 15.2113 19.4907C15.2113 19.1007 14.9513 18.7207 14.4913 18.4107C13.1513 17.5007 10.8613 17.5107 9.50125 18.4107Z" fill="#555555" />
+              </svg>
 
 
+              <p className=""> All Users</p>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/admin/rates`}
+              className={
+                "nav-link " + (brandName === "Rates" ? "active" : "")
+              }
+            >
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="iconns">
+<g clip-path="url(#clip0_1831_5950)">
+<path d="M18.7656 10.1074V12.5074" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.03906 11.3084V2.32656C4.03906 1.45384 4.72997 0.726562 5.6027 0.726562H17.1663C18.0391 0.726562 18.7663 1.45384 18.7663 2.32656" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20.9819 23.2715H7.52734" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.7656 12.3262H23.202V21.0534C23.202 22.2898 22.2202 23.2716 20.9838 23.2716C19.7474 23.2716 18.7656 22.2898 18.7656 21.0534V12.3262Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23.163 6.72578C22.8358 8.87124 20.8358 10.3621 18.6903 10.0712C16.5449 9.78033 15.0539 7.74397 15.3449 5.59851C15.6721 3.45306 17.6721 1.96215 19.8176 2.25306C21.963 2.58033 23.4539 4.58033 23.163 6.72578Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.5625 7.85447L20.9443 4.47266" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.9265 5.59908C18.3282 5.59908 18.6538 5.27347 18.6538 4.8718C18.6538 4.47014 18.3282 4.14453 17.9265 4.14453C17.5248 4.14453 17.1992 4.47014 17.1992 4.8718C17.1992 5.27347 17.5248 5.59908 17.9265 5.59908Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20.5827 8.21822C20.9844 8.21822 21.31 7.89261 21.31 7.49094C21.31 7.08928 20.9844 6.76367 20.5827 6.76367C20.1811 6.76367 19.8555 7.08928 19.8555 7.49094C19.8555 7.89261 20.1811 8.21822 20.5827 8.21822Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.52955 23.2726H1.52955C1.16591 23.2726 0.875 22.9817 0.875 22.618V21.5999C0.875 21.2362 1.16591 20.9453 1.52955 20.9453H7.52955C7.89318 20.9453 8.18409 21.2362 8.18409 21.5999V22.618C8.18409 22.9817 7.89318 23.2726 7.52955 23.2726Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.52955 20.9445H1.52955C1.16591 20.9445 0.875 20.6536 0.875 20.2899V19.2717C0.875 18.9081 1.16591 18.6172 1.52955 18.6172H7.52955C7.89318 18.6172 8.18409 18.9081 8.18409 19.2717V20.2899C8.18409 20.6536 7.89318 20.9445 7.52955 20.9445Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.50987 18.654C6.55835 18.654 8.21896 17.0097 8.21896 14.9813C8.21896 12.9529 6.55835 11.3086 4.50987 11.3086C2.4614 11.3086 0.800781 12.9529 0.800781 14.9813C0.800781 17.0097 2.4614 18.654 4.50987 18.654Z" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.50916 15.0159C3.96371 15.0159 3.52734 14.5795 3.52734 14.0705C3.52734 13.5614 3.96371 13.125 4.50916 13.125C5.05462 13.125 5.49098 13.5614 5.49098 14.0705" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.48977 15.998C5.48977 16.5435 5.05341 16.9435 4.50795 16.9435C3.9625 16.9435 3.5625 16.5071 3.5625 15.998" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.50781 15.0176C5.05327 15.0176 5.48963 15.4539 5.48963 15.963" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.50781 13.1258V12.6895" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.50781 16.9434V17.307" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.51172 3.27148H12.039" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.51172 5.30859H9.82081" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.51172 8.43555H13.2026" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.62109 10.4707H15.6029" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.56641 12.5078H16.2937" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.0742 14.5449H16.2924" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.92969 16.5801H16.2933" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.293 18.6172H16.293" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.2929 20.7266H12.7656" stroke="#555555" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_1831_5950">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+
+
+              <p className=""> Commission Rates</p>
+            </Link>
+          </li>
           <li>
             <Link
               to={`/admin/earn`}
@@ -149,17 +213,17 @@ function Sidebar(props) {
               }
             >
 
-              <button onClick={handleShow} className="connect d-none" centered><img src="\assests\buttonsvgs\connectwallet.svg" alt="img" className="img-fluid"/>Connect Wallet</button>
+              <button onClick={handleShow} className="connect d-none" centered><img src="\assests\buttonsvgs\connectwallet.svg" alt="img" className="img-fluid" />Connect Wallet</button>
             </Link>
           </li>
 
 
         </Nav>
-        <div className="bottom-copyright">
+       {account && <div className="bottom-copyright">
           <button className="delbtn">Disconnect Wallet</button>
-        </div>
+        </div>}
 
-        
+
       </div>
 
       <Modal className="connectwallet-modal" show={show} onHide={handleClose} centered>
@@ -187,7 +251,7 @@ function Sidebar(props) {
         </Modal.Header>
         <Modal.Body>
           <div className="connect-btns">
-            <button onClick={()=>{connectMetamask(); setShow1(false)}}><img src="\assests\buttonsvgs\metamask.svg" alt="img" className="img-fluid mr-2" />Metamask</button>
+            <button onClick={() => { connectMetamask(); setShow1(false) }}><img src="\assests\buttonsvgs\metamask.svg" alt="img" className="img-fluid mr-2" />Metamask</button>
             <button onClick={trustWallet}><img src="\assests\buttonsvgs\walletconnect.svg" alt="img" className="img-fluid mr-2" />WalletConnect</button>
           </div>
         </Modal.Body>

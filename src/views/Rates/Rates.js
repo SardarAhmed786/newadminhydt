@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import Envirnoment from '../../utils/environment'
+import { useWeb3React } from "@web3-react/core";
 import "./rates.scss"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Nav } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const Rates = () => {
     const [activeTab, setActiveTab] = useState('link-1');
+    const [levelData, setLevelData] = useState()
+
     const handleSelect = (eventKey) => {
         setActiveTab(eventKey);
     };
@@ -14,6 +20,115 @@ const Rates = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const { account } = useWeb3React();
+    const accessToken = localStorage.getItem('accessToken');
+    const [commisionRates, setCommisionRates] = useState()
+    const [hygtComRate, setHygtCommisionRates]=useState()
+    function getRefFunc() {
+
+        axios
+            .get(Envirnoment.apiUrl + 'commission-rates', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.data);
+                // You can perform additional actions based on the API response
+                setCommisionRates(response?.data?.data)
+            })
+            .catch((error) => {
+                // Handle API errors here
+                // toast.error(error.request?.statusText)
+            })
+            .finally(() => {
+                // setIsConfirmLoading(false);
+            });
+
+    }
+    function getHygtComRateFunc() {
+
+        axios
+            .get(Envirnoment.apiUrl + 'commission-rates/hygt', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.data);
+                // You can perform additional actions based on the API response
+                setHygtCommisionRates(response?.data?.data?.hygtCommission)
+            })
+            .catch((error) => {
+                // Handle API errors here
+                // toast.error(error.request?.statusText)
+            })
+            .finally(() => {
+                // setIsConfirmLoading(false);
+            });
+
+    }
+    function updateHydtComRate() {
+        let data = {
+            [levelData.leveltxt]: levelData.value,
+            stakingType: levelData.stakingType
+        }
+        axios
+            .patch(Envirnoment.apiUrl + 'commission-rates', data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+            .then((response) => {
+               
+                toast.success('Commission Rate Upadated Successfully')
+                handleClose()
+                getRefFunc()
+                // You can perform additional actions based on the API response
+            })
+            .catch((error) => {
+                // Handle API errors here
+                toast.error(error.request?.statusText)
+                console.error('Error checking username availability:', error);
+            })
+            .finally(() => {
+            });
+    }
+    function updateHygtComRate() {
+        if (!hygtComRate || hygtComRate < 0){
+            toast.error('Invalid Value')
+            return;
+        }
+        let data = {
+            hygtCommission: hygtComRate
+
+        }
+        axios
+            .patch(Envirnoment.apiUrl + 'commission-rates/hygt', data, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+            .then((response) => {
+
+                toast.success('Upadated Successfully')
+                getHygtComRateFunc()
+                // You can perform additional actions based on the API response
+            })
+            .catch((error) => {
+                // Handle API errors here
+                toast.error(error.request?.statusText)
+                console.error('Error checking username availability:', error);
+            })
+            .finally(() => {
+            });
+    }
+    useEffect(() => {
+        if (account) {
+            getRefFunc()
+            getHygtComRateFunc()
+        }
+    }, [account])
     return (
         <>
             <div className="content">
@@ -59,75 +174,32 @@ const Rates = () => {
                                             <h4>Level 5</h4>
                                         </div>
                                     </div>
-                                    <div className="parent one">
-                                        <div className="first">
-                                            <h4>12 Month Staking</h4>
+                                    {commisionRates?.map((item) => {
+                                        return (
+                                            <div className="parent one" key={item.id}>
+                                                <div className="first">
+                                                    <h4>{item.stakingType + ' Month Staking'}</h4>
+                                                </div>
+                                                <div className="second">
+                                                    <h4>{item.levelOne}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelOne, level: '1', leveltxt:  'levelOne' })}} /></h4>
+                                                </div>
+                                                <div className="third">
+                                                    <h4>{item.levelTwo}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelTwo, level: '2', leveltxt:  'levelTwo' })}} /></h4>
+                                                </div>
+                                                <div className="fourth">
+                                                    <h4>{item.levelThree}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelThree, level: '3', leveltxt:  'levelThree' })}} /></h4>
+                                                </div>
+                                                <div className="five">
+                                                    <h4>{item.levelFour}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFour, level: '4', leveltxt:  'levelFour' })}} /></h4>
+                                                </div>
+                                                <div className="six">
+                                                    <h4>{item.levelFive}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFive, level: '5', leveltxt:  'levelFive' })}} /></h4>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
 
-                                        </div>
-                                        <div className="second">
-                                            <h4>4%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={handleShow} /></h4>
-
-                                        </div>
-                                        <div className="third">
-                                            <h4>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                        <div className="fourth">
-                                            <h4>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-
-                                        </div>
-                                        <div className="five">
-                                            <h4>0.5% <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                        <div className="six">
-                                            <h4>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                    </div>
-                                    <div className="parent one">
-                                        <div className="first">
-                                            <h4>12 Month Staking</h4>
-
-                                        </div>
-                                        <div className="second">
-                                            <h4>4%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-
-                                        </div>
-                                        <div className="third">
-                                            <h4>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                        <div className="fourth">
-                                            <h4>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-
-                                        </div>
-                                        <div className="five">
-                                            <h4>0.5% <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                        <div className="six">
-                                            <h4>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                    </div>
-                                    <div className="parent one">
-                                        <div className="first">
-                                            <h4>12 Month Staking</h4>
-
-                                        </div>
-                                        <div className="second">
-                                            <h4>4%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-
-                                        </div>
-                                        <div className="third">
-                                            <h4>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                        <div className="fourth">
-                                            <h4>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-
-                                        </div>
-                                        <div className="five">
-                                            <h4>0.5% <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                        <div className="six">
-                                            <h4>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></h4>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                                 <div className="formobilecard d-none">
                                     <div className='mblinner'>
@@ -242,27 +314,27 @@ const Rates = () => {
                                     <p>HYGT Commission </p>
                                 </div>
                                 <div className='maininput'>
-                                    <input type='text' placeholder='1 ' />
+                                    <input onChange={(e)=>setHygtCommisionRates(e.target.value)} value={hygtComRate} type='text' placeholder='Enter Amount' />
                                     <p>HYGT/HYDT</p>
                                 </div>
-                                <button className='save'>Save</button>
+                                <button onClick={updateHygtComRate} className='save'>Save</button>
                             </>
                         )}
                     </div>
                 </section>
-
+                {console.log(levelData)}
                 <Modal className='edit' show={show} onHide={handleClose} centered>
                     <Modal.Header closeButton>
-                        <Modal.Title>12 Month Staking</Modal.Title>
+                        <Modal.Title>{levelData?.stakingType} Month Staking</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className='main'>
-                            <p>Level 1 Direct</p>
-                            <input type='text' placeholder='5%' />
+                            <p>Level {levelData?.level} Direct</p>
+                            <input value={levelData?.value} onChange={(e)=>{setLevelData({...levelData, value: e.target.value})}} type='text' placeholder={levelData?.value + '%'} />
                         </div>
                         <div className='endbtn'>
-                            <button>Cancel</button>
-                            <button>Save</button>
+                            <button onClick={handleClose}>Cancel</button>
+                            <button onClick={updateHydtComRate}>Save</button>
                         </div>
                     </Modal.Body>
 

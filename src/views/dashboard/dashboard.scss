@@ -281,3 +281,16 @@
         padding: 0px !important;
     }
 }
+
+.cp{
+    cursor: pointer !important;
+}
+
+.disable{
+    cursor:not-allowed !important;
+    filter: brightness(0.5);
+}
+.loading{
+    cursor:progress !important;
+    filter: brightness(0.5);
+}

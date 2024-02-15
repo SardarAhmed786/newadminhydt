@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./style.scss";
 import { useHistory } from "react-router-dom";
-
+import { useWeb3React } from "@web3-react/core";
 import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 import logo from "../../assets/img/logo.svg";
 import routes from "routes.js";
 import { Modal } from "react-bootstrap";
-import { useWeb3React } from "@web3-react/core";
 import useAuth from "hooks/useAuth";
 
 var ps;
@@ -220,9 +219,9 @@ function Sidebar(props) {
 
 
         </Nav>
-        <div className="bottom-copyright">
+       {account && <div className="bottom-copyright">
           <button className="delbtn">Disconnect Wallet</button>
-        </div>
+        </div>}
 
 
       </div>

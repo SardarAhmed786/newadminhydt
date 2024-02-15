@@ -1,9 +1,59 @@
-import React from 'react'
-import "./allusers.scss"
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import Envirnoment from '../../utils/environment'
+import { useWeb3React } from "@web3-react/core";
+import useWeb3 from 'hooks/useWeb3';
+import { toast } from 'react-toastify';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import { Nav } from 'react-bootstrap';
+import "./allusers.scss"
 const Allusers = () => {
+    const [userName, setUserName] = useState('Select')
+    let filByTypeArray = ['userName', 'walletAddress']
+    const { account } = useWeb3React();
+    const accessToken = localStorage.getItem('accessToken');
+    const [searchData, setSearchData] = useState({users: []})
+    const [offset, setOffset] = useState(1)
+    const [walletAddress, setWalletAddress] = useState()
+    const web3 = useWeb3();
+    function getSearchFunc() {
+        if ([userName] == 'walletAddress') {
+            let res = web3.utils.isAddress(walletAddress)
+            if (!res) {
+                toast.error('Invalid wallet address')
+                return;
+            }
+        }
+        const params = {
+            offset,
+            [userName]: walletAddress,
+            limit: 10
+
+        };
+        axios
+            .get(Envirnoment.apiUrl + 'users/get-users-list', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                params: params,
+            })
+            .then((response) => {
+                console.log('searchData', response?.data?.data);
+                // You can perform additional actions based on the API response
+                setSearchData(response?.data?.data);
+            })
+            .catch((error) => {
+                // Handle API errors here
+                setSearchData();
+                toast.error(error.request?.statusText)
+            })
+            .finally(() => {
+                // setIsConfirmLoading(false);
+            });
+    }
+    console.log('searchData', searchData);
+
     return (
         <>
             <div className="content">
@@ -15,27 +65,29 @@ const Allusers = () => {
                             </div>
                             <div className='userparent'>
                                 <div className='left'>
-                                    <input type='text' placeholder='Search' />
+                                    <input onChange={(e) => setWalletAddress(e.target.value)} type='text' placeholder='Search' />
                                     <img src='\assests\search-normal.svg' alt='img' className='img-fluid search' />
                                     <div className='dropbtn'>
                                         <Dropdown>
                                             <Dropdown.Toggle id="dropdown-basic">
-                                                Wallet
+                                                {userName.charAt(0).toUpperCase() + userName.slice(1)} 
                                                 <img src='\assests\arrow-down.svg' alt='img' className='dropimg img-fluid' />
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">Wallet</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Username</Dropdown.Item>
-
+                                                {filByTypeArray?.map((item, id) => {
+                                                    return <Dropdown.Item id= { id } ><a onClick={() => setUserName(item)}>{item.charAt(0).toUpperCase() + item.slice(1)}</a></Dropdown.Item>
+                                                   
+                                                })}
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
                                 </div>
                                 <div className='right'>
-                                    <button>Search</button>
+                                    <button onClick={getSearchFunc} disabled={(!walletAddress || walletAddress === '') || userName === 'Select'} className={walletAddress && userName !== 'Select' ? '' : 'disable'}>Search</button>
                                 </div>
                             </div>
+                            {searchData?.users?.length === 0 ? <h2 className='text-center py-5'>Data Not Found !</h2>  : 
                             <div className="maincard">
                                 <div className="parent">
                                     <div className="first">
@@ -57,119 +109,62 @@ const Allusers = () => {
                                         <h4>Indirect Referral</h4>
                                     </div>
                                 </div>
-                                <div className="parent one">
-                                    <div className="first">
-                                        <h4>John Doe</h4>
-                                        <p>0x12BB....JHE9 </p>
-                                    </div>
-                                    <div className="second">
-                                        <h4>Jan 1, 2024</h4>
+                                {searchData?.users?.map((item) => {
+                                    const dateString = item?.createdAt;
+                                    const date = new Date(dateString);
 
-                                    </div>
-                                    <div className="third">
-                                        <h4>1,000 <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
-                                    </div>
-                                    <div className="fourth">
-                                        <h4>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
+                                    // Format the date in the desired format "09/02/2024 3:00 PM"
+                                    const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()} ${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
 
-                                    </div>
-                                    <div className="five">
-                                        <h4>100</h4>
-                                    </div>
-                                    <div className="six">
-                                        <h4>100</h4>
-                                    </div>
-                                </div>
-                                <div className="parent one">
-                                    <div className="first">
-                                        <h4>John Doe</h4>
-                                        <p>0x12BB....JHE9 </p>
-                                    </div>
-                                    <div className="second">
-                                        <h4>Jan 1, 2024</h4>
+                                    return (
+                                        <div className="parent one">
+                                            <div className="first">
+                                                <h4>{item?.userName}</h4>
+                                                <p>{item?.walletAddress?.slice(0, 5)}...{item?.walletAddress?.slice(-4)}</p>
+                                            </div>
+                                            <div className="second">
+                                                <h4>{formattedDate}</h4>
 
-                                    </div>
-                                    <div className="third">
-                                        <h4>1,000 <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
-                                    </div>
-                                    <div className="fourth">
-                                        <h4>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
+                                            </div>
+                                            <div className="third">
+                                                <h4>{parseFloat(item?.totalStakedAmount || 0)?.toFixed(4)} <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
+                                            </div>
+                                            <div className="fourth">
+                                                <h4>{item?.reward?.totalReward}<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
 
-                                    </div>
-                                    <div className="five">
-                                        <h4>100</h4>
-                                    </div>
-                                    <div className="six">
-                                        <h4>100</h4>
-                                    </div>
-                                </div>
-                                <div className="parent one">
-                                    <div className="first">
-                                        <h4>John Doe</h4>
-                                        <p>0x12BB....JHE9 </p>
-                                    </div>
-                                    <div className="second">
-                                        <h4>Jan 1, 2024</h4>
+                                            </div>
+                                            <div className="five">
+                                                <h4>{item?.directRefferals}</h4>
+                                            </div>
+                                            <div className="six">
+                                                <h4>{item?.indirectRefferals}</h4>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
 
-                                    </div>
-                                    <div className="third">
-                                        <h4>1,000 <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
-                                    </div>
-                                    <div className="fourth">
-                                        <h4>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
-
-                                    </div>
-                                    <div className="five">
-                                        <h4>100</h4>
-                                    </div>
-                                    <div className="six">
-                                        <h4>100</h4>
-                                    </div>
-                                </div>
-                                <div className="parent one">
-                                    <div className="first">
-                                        <h4>John Doe</h4>
-                                        <p>0x12BB....JHE9 </p>
-                                    </div>
-                                    <div className="second">
-                                        <h4>Jan 1, 2024</h4>
-
-                                    </div>
-                                    <div className="third">
-                                        <h4>1,000 <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
-                                    </div>
-                                    <div className="fourth">
-                                        <h4>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
-
-                                    </div>
-                                    <div className="five">
-                                        <h4>100</h4>
-                                    </div>
-                                    <div className="six">
-                                        <h4>100</h4>
-                                    </div>
-                                </div>
                                 <div className="pagi">
                                     <div className="left">
                                     </div>
                                     <div className="right">
                                         <div className='arrows'>
-                                            <img src='\assests\pagi.svg' alt='1mg' className='img-fluid' />
+                                            <img onClick={() => offset > 1 ? setOffset(offset - 1) : null} src='\assests\pagi.svg' alt='1mg' className={offset > 1 ? 'img-fluid cp' : 'img-fluid disable'} />
 
                                         </div>
                                         <Pagination>
-                                            <Pagination.Item active>{1}</Pagination.Item>
+                                            <Pagination.Item active>{offset}</Pagination.Item>
                                             <Pagination.Item>/</Pagination.Item>
-                                            <Pagination.Item >{10}</Pagination.Item>
+                                            <Pagination.Item >{searchData?.pages}</Pagination.Item>
 
                                         </Pagination>
                                         <div className='arrows'>
-                                            <img src='\assests\pagiright.svg' alt='1mg' className='img-fluid' />
+                                            <img onClick={() => offset < searchData?.pages ? setOffset(offset + 1) : null} src='\assests\pagiright.svg' alt='1mg' className={offset < searchData?.pages ? 'img-fluid cp' : 'img-fluid disable'} />
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
+}
                             <div className="formobilecard d-none">
                                 <div className='parents'>
                                     <div className='lefts'>

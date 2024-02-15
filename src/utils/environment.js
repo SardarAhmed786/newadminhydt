@@ -18,6 +18,9 @@ let Environment = {
   
   routerContract: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
   hydtGraph:  "https://api.thegraph.com/subgraphs/name/ammarsjw/graph-hydt-testnet",
+
+
+  apiUrl: "http://ec2-18-236-118-29.us-west-2.compute.amazonaws.com:5555/",
 };
 
 export default Environment;

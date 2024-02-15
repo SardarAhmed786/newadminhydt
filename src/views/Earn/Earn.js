@@ -7,7 +7,8 @@ import "./earn.scss";
 import Pagination from 'react-bootstrap/Pagination';
 import { Nav } from 'react-bootstrap';
 
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const Earn = () => {
   const [activeTab, setActiveTab] = useState('pending');
@@ -54,6 +55,11 @@ const Earn = () => {
   }, [account, offset, activeTab])
   console.log('data', pendingData);
   console.log(activeTab);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
 
@@ -80,7 +86,7 @@ const Earn = () => {
                 </Nav>
                 <div className="parentbtn">
                   <button className="reject">Rejected</button>
-                  <button className="approve">Approve</button>
+                  <button className="approve" onClick={handleShow}>Approve</button>
                 </div>
               </div>
 
@@ -1341,6 +1347,20 @@ const Earn = () => {
           </div>
 
         </section>
+        <Modal className='approvemodal' show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter private key</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className='paramodal'>Please enter your Private Key to continue</p>
+          <input type='text' placeholder='Enter private key here'/>
+          <div className='endbtnsss'>
+            <button className='cancle'>Cancel</button>
+            <button className='conti'>Continue</button>
+          </div>
+        </Modal.Body>
+     
+      </Modal>
       </div>
     </>
   );

@@ -19,6 +19,7 @@ function Sidebar(props) {
   const sidebar = React.useRef();
   const [brandName, setbrandName] = useState();
   const { account } = useWeb3React();
+  
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -57,13 +58,10 @@ function Sidebar(props) {
     getBrand();
   });
   const { login, logout } = useAuth();
-  const connectMetamask = () => {
-    localStorage.setItem("connectorId", "injected");
-    if (account) {
-      logout();
-    } else {
-      login("injected");
-    }
+  const connectMetamask =async() => {
+    const connectorId = window.localStorage.getItem("connectorId")
+    await logout(connectorId);
+localStorage.clear()
   };
   const trustWallet = async () => {
     localStorage.setItem("connectorId", "walletconnect");
@@ -123,7 +121,7 @@ function Sidebar(props) {
               <p className="">Dashboard</p>
             </Link>
           </li>
-          <li>
+         {account && <li>
             <Link
               to={`/admin/earn`}
               className={
@@ -137,8 +135,8 @@ function Sidebar(props) {
 
               <p className="">Commissions</p>
             </Link>
-          </li>
-          <li>
+          </li>}
+          {account && <li>
             <Link
               to={`/admin/allusers`}
               className={
@@ -157,8 +155,8 @@ function Sidebar(props) {
 
               <p className=""> All Users</p>
             </Link>
-          </li>
-          <li>
+          </li>}
+          {account &&  <li>
             <Link
               to={`/admin/rates`}
               className={
@@ -204,8 +202,8 @@ function Sidebar(props) {
 
               <p className=""> Commission Rates</p>
             </Link>
-          </li>
-          <li>
+          </li>}
+          {account &&  <li>
             <Link
               to={`/admin/earn`}
               className={
@@ -215,12 +213,12 @@ function Sidebar(props) {
 
               <button onClick={handleShow} className="connect d-none" centered><img src="\assests\buttonsvgs\connectwallet.svg" alt="img" className="img-fluid" />Connect Wallet</button>
             </Link>
-          </li>
+          </li>}
 
 
         </Nav>
        {account && <div className="bottom-copyright">
-          <button className="delbtn">Disconnect Wallet</button>
+          <button onClick={() => { connectMetamask(); localStorage.clear() }} className="delbtn">Disconnect Wallet</button>
         </div>}
 
 

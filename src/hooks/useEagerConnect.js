@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import useAuth from './useAuth'
+import { connectorsByName } from "../utils/web3React";
 
-const ConnectorNames =  {
-    Injected : "injected",
-    WalletConnect : "walletconnect",
-    BSC : "bsc"
+const ConnectorNames = {
+  Injected: "injected",
+  WalletConnect: "walletconnect",
+  BSC: "bsc"
 }
 
 
@@ -18,7 +19,7 @@ const useEagerConnect = () => {
     // into the Window object in time causing it to throw an error
     // TODO: Figure out an elegant way to listen for when the BinanceChain object is ready
     if (connectorId && connectorId !== ConnectorNames.BSC) {
-      login(connectorId)
+      connectorsByName[connectorId].connectEagerly()
     }
   }, [login])
 }

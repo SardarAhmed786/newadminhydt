@@ -30,16 +30,22 @@ import { Provider } from 'react-redux';
 import store from './redux/store/index';
 import { Web3ReactProvider } from '@web3-react/core'
 import { getLibrary } from './utils/web3React'
+import { hooks as walletConnectV2Hooks, walletConnectV2 } from './connectors/walletConnectV2.js'
+import { hooks as metaMaskHooks, metaMask } from './connectors/metaMask'
+import { createRoot } from 'react-dom/client'
+const domNode = document.getElementById('root');
+const root = createRoot(domNode);
 
-
-ReactDOM.render(
+const connectors = [
+  [walletConnectV2, walletConnectV2Hooks],
+  [metaMask, metaMaskHooks]
+]
+root.render(
   <Provider store={store}>
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <Web3ReactProvider connectors={connectors}>
       <App />
     </Web3ReactProvider>
   </Provider>,
-
-  document.getElementById('root')
 );
 
 

@@ -39,9 +39,11 @@ export default function TopRefByCommision() {
 
     useEffect(() => {
         if (account) {
-            getTopRefByEarnComFunc()
+            let user = localStorage.getItem('user');
+            user && getTopRefByEarnComFunc()
+            
         }
-    }, [account, offset])
+    }, [account, offset, accessToken])
   return (
       <div className="col-xl-6 col-12 padds ">
           <div className="main-heading">

@@ -8,7 +8,8 @@ import axios from 'axios';
 import Envirnoment from '../../utils/environment'
 import TopRRefByStaking from "./subcomponents/TopRRefByStaking";
 import TopRefByCommision from "./subcomponents/TopRefByCommision";
-function Dashboard() {
+function Dashboard({bool}) {
+  console.log(bool);
   const { account } = useWeb3React();
   const accessToken = localStorage.getItem('accessToken');
   const [adminData, setAdminData] = useState()
@@ -36,13 +37,14 @@ function Dashboard() {
   }
   useEffect(() => {
     if (account) {
-      getRefFunc()
+      let user=localStorage.getItem('user');
+     user &&  getRefFunc()
     }
-  }, [account])
+  }, [account, accessToken, bool])
   return (
     <>
       {/* {mainLoader && <Loader />} */}
-      <div className="content">
+      {account && <div className="content">
         <section className="main-dashboard">
           <div className="first">
             <div className="main-heading">
@@ -115,7 +117,7 @@ function Dashboard() {
             </div>
           </div>
         </section>
-      </div>
+      </div>}
 
     </>
   );

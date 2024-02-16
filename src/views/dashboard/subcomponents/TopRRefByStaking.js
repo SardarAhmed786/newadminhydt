@@ -9,6 +9,7 @@ export default function TopRRefByStaking() {
     const accessToken = localStorage.getItem('accessToken');
     const [data, setData] = useState()
     const [offset, setOffset] = useState(1)
+
     function getTopRefByEarnComFunc() {
         const params = {
             offset,
@@ -39,9 +40,10 @@ export default function TopRRefByStaking() {
 
     useEffect(() => {
         if (account) {
-            getTopRefByEarnComFunc()
+            let user = localStorage.getItem('user');
+           user && getTopRefByEarnComFunc()
         }
-    }, [account, offset])
+    }, [account, offset, accessToken])
     console.log('data', data);
   return (
       <div className="col-xl-6 col-12 padds">

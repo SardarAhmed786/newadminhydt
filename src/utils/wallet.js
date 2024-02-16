@@ -1,31 +1,29 @@
 // Set of helper functions to facilitate wallet setup
 
-import { nodes } from './getRpcUrl'
-
 /**
  * Prompt the user to add BSC as a network on Metamask, or switch to BSC if the wallet is on a different network
  * @returns {boolean} true if the setup succeeded, false otherwise
  */
 export const setupNetwork = async () => {
+  // const provider = ((window.ethereum != null) ? new ethers.providers.Web3Provider(window.ethereum) : ethers.providers.getDefaultProvider());
   const provider = (window).ethereum
   if (provider) {
-    // const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
-    const chainId = 5
+    const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
+    // const chainId = 4
     try {
       await provider.request({
         method: 'wallet_switchEthereumChain',
         params: [
           {
             chainId: `0x${chainId.toString(16)}`,
-            // chainName: 'Goerli test network',
+            // chainName: 'Rinkeby Smart Chain TestNet',
             // nativeCurrency: {
-            //   name: 'Görli',
+            //   name: 'ETH',
             //   symbol: 'ETH',
             //   decimals: 18,
             // },
-            // rpcUrls: nodes,
-            // blockExplorerUrls: ['https://goerli.etherscan.io'],
-            // blockExplorerUrls: ['https://testnet.bscscan.com/'],
+            // rpcUrls: [nodes],
+            // blockExplorerUrls: ['https://rinkeby.etherscan.com/'],
           },
         ],
       })
@@ -39,7 +37,6 @@ export const setupNetwork = async () => {
     return false
   }
 }
-
 /**
  * Prompt the user to add a custom token to metamask
  * @param tokenAddress

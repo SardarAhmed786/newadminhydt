@@ -1,37 +1,48 @@
-import { useCallback } from 'react'
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
-import { useToast } from '../state/hooks'
-import { connectorsByName } from '../utils/web3React'
-import { setupNetwork } from '../utils/wallet'
+import { useCallback } from "react";
+import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
+import { useToast } from "../state/hooks";
+import { connectorsByName } from "../utils/web3React";
 
 const useAuth = () => {
-  const { activate, deactivate } = useWeb3React()
-  const { toastError } = useToast()
+  const { toastError } = useToast();
 
-  
-  const login = useCallback((connectorID) => {
-      const connector = connectorsByName[connectorID]
-      console.log("Fffffff",connector,connectorID);
-      if (connector) {
-      // alert("all goog")
-      activate(connector, async (error) => {
-        if (error instanceof UnsupportedChainIdError) {
-          const hasSetup = await setupNetwork()
-          if (hasSetup) {
-            activate(connector)
-          }
-        } else {
-          connector.walletConnectProvider = undefined
-          toastError(error.name, error.message)
-        }
-      })
+  const login = async (connectorID) => {
+    console.log("---------->", connectorID);
+
+    // console.log("---------->", connectorsByName);
+
+    // console.log("AAAAAA", connectorID)
+
+    const connector = connectorsByName[connectorID];
+    // console.log("---------->", connector);
+    if (connector) {
+      console.log("connector", connector)
+
+      await connector.activate(5)
     } else {
-      toastError("Can't find connector", 'The connector config is wrong')
+      toastError("Can't find connector", "The connector config is wrong");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  };
 
-  return { login, logout: deactivate }
-}
+  const logout = async (connectorID) => {
+    console.log("disssss", connectorID)
+    const connector = connectorsByName[connectorID];
+    console.log("disssss", connector)
+    if (connector) {
+      if (connector?.deactivate) {
+        await connector.deactivate()
+      } else {
+        await connector.resetState()
+      }
+      // await connector.deactivate()
+    } else {
+      toastError("Can't find connector", "The connector config is wrong");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
 
-export default useAuth
+  return { login, logout };
+};
+
+export default useAuth;

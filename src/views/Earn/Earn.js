@@ -6,15 +6,22 @@ import { useWeb3React } from "@web3-react/core";
 import "./earn.scss";
 import Pagination from 'react-bootstrap/Pagination';
 import { Nav } from 'react-bootstrap';
-
-
+import { soliditySha3 } from "web3-utils";
+import useWeb3 from "../../hooks/useWeb3";
+import { toast } from 'react-toastify';
 
 const Earn = () => {
   const [activeTab, setActiveTab] = useState('pending');
   const { account } = useWeb3React();
   const accessToken = localStorage.getItem('accessToken');
   const [pendingData, setPendingData] = useState()
+  const web3 = useWeb3();
   // const [status, setStatus] = useState('pending')
+  let vesting = {
+    "no vesting": 0,
+    "three months": 3,
+    "twelve months": 12,
+  }
   const [offset, setOffset] = useState(1)
   function getTopRefByEarnComFunc() {
     const params = {
@@ -46,7 +53,88 @@ const Earn = () => {
   const handleSelect = (eventKey) => {
     setActiveTab(eventKey);
   };
+  async function approveRejectFunc(sign, status, id, currentTimeEpoch) {
+    let data = {
+      status,
+      sign,
+      signTime: currentTimeEpoch?.toString()
+    }
+    axios
+      .patch(Envirnoment.apiUrl + `withdraw/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((response) => {
 
+        toast.success(response.data?.statusText)
+        getTopRefByEarnComFunc()
+        // You can perform additional actions based on the API response
+      })
+      .catch((error) => {
+        // Handle API errors here
+        toast.error(error.request?.statusText)
+        console.error('Error checking username availability:', error);
+      })
+      .finally(() => {
+      });
+  }
+  const approve = async (data, action) => {
+    console.log('approve', data)
+    const currentTimeEpoch = Math.floor(Date.now() / 1000)
+    let dataArr = [
+      data?.user?.walletAddress,
+      parseFloat(data?.amount)?.toFixed(4) * 1e18,
+      parseFloat(data?.hygtAmount)?.toFixed(4) * 1e18,
+      vesting[data?.hygtVestingType],
+      currentTimeEpoch,
+    ]
+    console.log('dataArr', data)
+    let hydt = web3.utils.toWei(parseFloat(data?.amount)?.toFixed(4)?.toString(), 'ether')
+    let hygt = web3.utils.toWei(parseFloat(data?.hygtAmount)?.toFixed(4)?.toString(), 'ether')
+    console.log('aamount', data?.amount, data?.hygtAmount, hydt, hygt);
+    const message = web3.utils.soliditySha3(
+      {
+        t: "address",
+        v: data?.user?.walletAddress,
+      },
+      {
+        t: "uint256",
+        v: hydt, // Convert to Wei and remove decimal places
+      },
+      {
+        t: "uint256",
+        v: hygt, // Convert to Wei and remove decimal places
+      },
+      {
+        t: "uint256",
+        v: vesting[data?.hygtVestingType],
+      },
+      {
+        t: 'uint256',
+        v: currentTimeEpoch
+      }
+    );
+
+
+
+    const signature = await web3.eth.accounts.sign(
+      message,
+      '32f14577d8d06ef693fee773e162d8815f8117f3bf3e20ea2024adbdc201987b'
+    );
+    console.log('signature',signature);
+    await approveRejectFunc(signature?.signature, action, data?.id, currentTimeEpoch)
+    // await web3.eth.personal.sign(soliditySha3Expected, account).then(async (res) => {
+    //   signature = res;
+    //   // signature = signature.substring(2)
+    //   // let r = '0x' + signature.slice(0, 64);
+    //   // let s = '0x' + signature.slice(64, 128);
+    //   // let v = '0x' + signature.slice(128, 130);
+    //   // console.log('signature', v, '---', r, '---', s, '---', signature);
+    //   await approveRejectFunc(signature, action, data?.id, currentTimeEpoch)
+    // });
+
+  }
   useEffect(() => {
     if (account) {
       getTopRefByEarnComFunc()
@@ -117,7 +205,12 @@ const Earn = () => {
                         <div className="five">
                           <h4>HYGT Vesting</h4>
                         </div>
-
+                        {activeTab === 'pending' && <div className="five">
+                          <h4>Approve</h4>
+                        </div>}
+                        {activeTab === 'pending' && <div className="five">
+                          <h4>Reject</h4>
+                        </div>}
                       </div>
                       {pendingData?.withdraws?.map((item, id) => {
                         let createdAt = new Date(item?.createdAt); // Parse the createdAt date string
@@ -150,6 +243,12 @@ const Earn = () => {
                             <div className="five">
                               <h4 className='text-capitalize'>{item?.hygtVestingType}</h4>
                             </div>
+                            {activeTab === 'pending' && <div className="five">
+                              <button onClick={() => approve(item, 'approved')} className="approve">Approve</button>
+                            </div>}
+                            {activeTab === 'pending' && <div className="five">
+                              <button onClick={() => approve(item, 'rejected')} className="approve">Reject</button>
+                            </div>}
                           </div>
                         )
                       })}

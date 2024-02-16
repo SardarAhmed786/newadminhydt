@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-// import Signature from "../../hooks/dataSenders/userSign";
+import Signature from "../../hooks/userSign";
 import Envirnoment from '../../utils/environment'
 import {
   Collapse,
@@ -39,7 +39,7 @@ function Header(props) {
   const [brandName, setbrandName] = React.useState();
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
-  // const { userSign } = Signature()
+  const { userSign } = Signature()
   const sidebarToggle = React.useRef();
   const location = useLocation();
   const { account } = useWeb3React();
@@ -92,27 +92,27 @@ function Header(props) {
     }
   }, [location]);
   const { login, logout } = useAuth();
-  const connectMetamask = () => {
-    localStorage.setItem("connectorId", "injected");
+  const connectMetamask = async () => {
+    handleClose1()
     if (account) {
-      logout();
+      const connectorId = window.localStorage.getItem("connectorId")
+      await logout(connectorId);
+      localStorage.removeItem("connectorId");
+      localStorage.removeItem("flag");
     } else {
       login("injected");
+      localStorage.setItem("connectorId", "injected");
+      localStorage.setItem("flag", "true");
     }
   };
   const trustWallet = async () => {
-    // localStorage.setItem("connectorId", "walletconnect");
-    // if (account) {
-    //   logout();
-    // } else {
-    //   login("walletconnect");
-    // }
-  };
-  const connectwallet = () => {
+    handleClose1()
     if (account) {
-      connectMetamask();
+      await logout("walletconnect");
     } else {
-      window.$("#exampleModalLong").modal("show");
+      login("walletconnect");
+      localStorage.setItem('connectorId', 'walletconnect');
+      localStorage.setItem("flag", "true");
     }
   };
 
@@ -135,8 +135,8 @@ function Header(props) {
     if (account) {
       // setLoader(true)
       try {
-        const sign = '0x2c4ccf62d2b44d2857287ab2b333ceaa8d7b3403475c90427d01079e8102f8356a0e52e3d2bb208a933b39ab411b67f5676c2d0adbe2704231f0bb565735de6a1b'
-        let data = {
+        const sign = await userSign(account?.toString());  
+              let data = {
           sign: sign?.toLowerCase(), walletAddress: account?.toLowerCase()
         }
         var config = {
@@ -145,28 +145,34 @@ function Header(props) {
           data: data
         };
         axios(config)
-          .then(function (response) {
-            // setLoader(false)
-            toast.success(response?.data?.message);
-            localStorage.setItem('accessToken', response?.data?.data?.accessToken)
-            localStorage.setItem("refreshToken", response?.data?.data?.refreshToken);
-            localStorage.setItem('user', JSON.stringify(response?.data?.data))
-            props.setBool(!props.bool)
+          .then(async function (response) {
+            if (response?.data?.data?.role === 'user'){
+              const connectorId = window.localStorage.getItem("connectorId")
+              await logout(connectorId);
+              localStorage.setItem("flag", false)
+              localStorage.clear()
+              toast.error('Admin Access Denied')
+            }else{
+              // setLoader(false)
+              toast.success(response?.data?.message);
+              localStorage.setItem('accessToken', response?.data?.data?.accessToken)
+              localStorage.setItem("refreshToken", response?.data?.data?.refreshToken);
+              localStorage.setItem('user', JSON.stringify(response?.data?.data))
+               props.setBool(!props.bool)
+            }
+           
           }).catch(async function (error) {
-            // setLoader(false)
-            // toast.error(error?.response?.data?.message)
-            // const connectorId = window.localStorage.getItem("connectorId")
-            // await logout(connectorId);
-            // localStorage.setItem("flag", false)
+            setLoader(false)
+            toast.error(error?.response?.data?.message)
+            const connectorId = window.localStorage.getItem("connectorId")
+            await logout(connectorId);
+            localStorage.setItem("flag", false)
           });
       } catch (error) {
         // console.log('error', error)
         toast.error('User Denied Sign')
         // setLoader(false)
-        const connectorId = window.localStorage.getItem("connectorId")
-       await  logout(connectorId);
-        localStorage.setItem("flag", false)
-        localStorage.clear()
+       
       }
     }
   }
@@ -265,7 +271,7 @@ function Header(props) {
           </div>
         </Modal.Body>
       </Modal>
-      <Modal className="connectwallet-modal" show={show1} onHide={handleClose1} centered>
+      <Modal className="connectwallet-modal" show={account ? show1 : true} onHide={handleClose1} centered>
         <Modal.Header closeButton>
           <Modal.Title>Connect Wallet</Modal.Title>
         </Modal.Header>
@@ -291,7 +297,7 @@ function Header(props) {
                 <img src="\assests\copy.svg" alt="img" className="img-fluid" />
               </div>
               <div className="disconnect-btn">
-                <button onClick={() => { setShowdis(false); connectMetamask() }}>Disconnect Wallet</button>
+                <button onClick={() => { setShowdis(false); connectMetamask() ; localStorage.clear() }}>Disconnect Wallet</button>
               </div>
             </div>
           </div>

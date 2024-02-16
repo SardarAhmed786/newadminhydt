@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 
 import PerfectScrollbar from "perfect-scrollbar";
 import { Route, Switch, useLocation } from "react-router-dom";
@@ -15,6 +15,7 @@ function Dashboard(props) {
   const [backgroundColor, setBackgroundColor] = React.useState("black");
   const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
+  const [bool, setBool] = useState(false)
   const location = useLocation();
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -47,13 +48,18 @@ function Dashboard(props) {
         activeColor={activeColor}
       />
       <div className="main-panel" ref={mainPanel}>
-        <DemoNavbar {...props} />
+        <DemoNavbar {...props} setBool={setBool} bool={bool} />
         <Switch>
           {routes.map((prop, key) => {
             return (
               <Route
                 path={prop.layout + prop.path}
-                component={prop.component}
+                render={(routeProps) => (
+                  <prop.component
+                    {...routeProps}
+                    setBool={setBool} bool={bool}
+                  />
+                )}
                 key={key}
               />
             );

@@ -181,19 +181,19 @@ const Rates = () => {
                                                     <h4>{item.stakingType + ' Month Staking'}</h4>
                                                 </div>
                                                 <div className="second">
-                                                    <h4>{item.levelOne}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelOne, level: '1', leveltxt:  'levelOne' })}} /></h4>
+                                                    <h4>{item.levelOne}% <img src="\assests\edit.svg" alt="img" className="img-fluid cp" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelOne, level: '1', leveltxt:  'levelOne' })}} /></h4>
                                                 </div>
                                                 <div className="third">
-                                                    <h4>{item.levelTwo}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelTwo, level: '2', leveltxt:  'levelTwo' })}} /></h4>
+                                                    <h4>{item.levelTwo}% <img src="\assests\edit.svg" alt="img" className="img-fluid cp" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelTwo, level: '2', leveltxt:  'levelTwo' })}} /></h4>
                                                 </div>
                                                 <div className="fourth">
-                                                    <h4>{item.levelThree}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelThree, level: '3', leveltxt:  'levelThree' })}} /></h4>
+                                                    <h4>{item.levelThree}% <img src="\assests\edit.svg" alt="img" className="img-fluid cp" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelThree, level: '3', leveltxt:  'levelThree' })}} /></h4>
                                                 </div>
                                                 <div className="five">
-                                                    <h4>{item.levelFour}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFour, level: '4', leveltxt:  'levelFour' })}} /></h4>
+                                                    <h4>{item.levelFour}% <img src="\assests\edit.svg" alt="img" className="img-fluid cp" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFour, level: '4', leveltxt:  'levelFour' })}} /></h4>
                                                 </div>
                                                 <div className="six">
-                                                    <h4>{item.levelFive}% <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFive, level: '5', leveltxt:  'levelFive' })}} /></h4>
+                                                    <h4>{item.levelFive}% <img src="\assests\edit.svg" alt="img" className="img-fluid cp" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFive, level: '5', leveltxt:  'levelFive' })}} /></h4>
                                                 </div>
                                             </div>
                                         );
@@ -201,111 +201,45 @@ const Rates = () => {
 
                                    
                                 </div>
+                                {commisionRates?.map((item) => {
+                                    return (
                                 <div className="formobilecard d-none">
                                     <div className='mblinner'>
                                         <div className='left'>
                                             <h5>One-time Staking</h5>
-                                            <p>12 Month Staking</p>
+                                                    <p>{item.stakingType}  Month Staking</p>
                                         </div>
                                         <div className='right'>
                                             <h5>Level 1 (Direct)</h5>
-                                            <p>4%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={handleShow} /></p>
+                                                    <p>{item.levelOne}%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelOne, level: '1', leveltxt: 'levelOne' }) }} /></p>
 
                                         </div>
                                     </div>
                                     <div className='mblinner'>
                                         <div className='left'>
                                             <h5>Level 2</h5>
-                                            <p>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
+                                                    <p>{item.levelTwo}%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelTwo, level: '2', leveltxt: 'levelTwo' }) }} /></p>
                                         </div>
                                         <div className='right for-width'>
                                             <h5>Level 3</h5>
-                                            <p>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
+                                                    <p>{item.levelThree}%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelThree, level: '3', leveltxt: 'levelThree' }) }} /></p>
 
                                         </div>
                                     </div>
                                     <div className='mblinner'>
                                         <div className='left'>
                                             <h5>Level 4</h5>
-                                            <p>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
+                                                    <p>{item.levelFour}%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFour, level: '4', leveltxt: 'levelFour' }) }} /></p>
                                         </div>
                                         <div className='right for-width'>
                                             <h5>Level 5</h5>
-                                            <p>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
+                                                    <p>{item.levelFive}%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={() => { handleShow(); setLevelData({ stakingType: item.stakingType, value: item?.levelFive, level: '5', leveltxt: 'levelFive' }) }} /></p>
 
                                         </div>
                                     </div>
                                 </div>
-                                <div className="formobilecard d-none">
-                                    <div className='mblinner'>
-                                        <div className='left'>
-                                            <h5>One-time Staking</h5>
-                                            <p>12 Month Staking</p>
-                                        </div>
-                                        <div className='right'>
-                                            <h5>Level 1 (Direct)</h5>
-                                            <p>4%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-
-                                        </div>
-                                    </div>
-                                    <div className='mblinner'>
-                                        <div className='left'>
-                                            <h5>Level 2</h5>
-                                            <p>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-                                        </div>
-                                        <div className='right for-width'>
-                                            <h5>Level 3</h5>
-                                            <p>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-
-                                        </div>
-                                    </div>
-                                    <div className='mblinner'>
-                                        <div className='left'>
-                                            <h5>Level 4</h5>
-                                            <p>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-                                        </div>
-                                        <div className='right for-width'>
-                                            <h5>Level 5</h5>
-                                            <p>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="formobilecard d-none">
-                                    <div className='mblinner'>
-                                        <div className='left'>
-                                            <h5>One-time Staking</h5>
-                                            <p>12 Month Staking</p>
-                                        </div>
-                                        <div className='right'>
-                                            <h5>Level 1 (Direct)</h5>
-                                            <p>4%  <img src="\assests\edit.svg" alt="img" className="img-fluid" onClick={handleShow} /></p>
-
-                                        </div>
-                                    </div>
-                                    <div className='mblinner'>
-                                        <div className='left'>
-                                            <h5>Level 2</h5>
-                                            <p>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-                                        </div>
-                                        <div className='right for-width'>
-                                            <h5>Level 3</h5>
-                                            <p>1%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-
-                                        </div>
-                                    </div>
-                                    <div className='mblinner'>
-                                        <div className='left'>
-                                            <h5>Level 4</h5>
-                                            <p>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-                                        </div>
-                                        <div className='right for-width'>
-                                            <h5>Level 5</h5>
-                                            <p>0.5%  <img src="\assests\edit.svg" alt="img" className="img-fluid" /></p>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                    );
+                                })}
                             </>
                         )}
                         {activeTab === 'link-2' && (

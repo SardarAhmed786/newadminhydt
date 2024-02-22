@@ -279,10 +279,126 @@
             }
         }
     }
-   
-  .formbl{
-    display: none;
-  }
+
+    .formbl {
+        display: none;
+    }
+}
+
+.approvemodal {
+    .modal-dialog {
+        max-width: 451px;
+
+        .modal-content {
+            border-radius: 10px;
+            border: 1px solid #1B1C1D;
+            padding: 5px 5px 20px 5px;
+            background: #141516;
+
+            .modal-header {
+                border-bottom: none;
+                padding: 18px 15px;
+                border-radius: 8px;
+                background: #191A1B;
+
+                .modal-title {
+                    color: #FFF;
+
+                    text-align: center;
+                    margin: 0 auto;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                }
+
+                .btn-close {
+                    background: url("../../../src/assets/close-circle11.png");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: contain;
+                    width: 30px;
+                    height: 30px;
+                    box-shadow: none !important;
+                    opacity: unset;
+                    position: absolute;
+                    padding: 0px;
+                    margin: 0px;
+                    top: 18px;
+                    right: 18px;
+                }
+            }
+
+            .modal-body {
+                padding: 15px;
+
+                .paramodal {
+                    color: #BEBEBE;
+                    margin-top: 17px;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%;
+                    margin-bottom: 10px;
+                }
+
+                input {
+                    border-radius: 6px;
+                    border: 1px solid #2B2C2E;
+                    background: #141516;
+                    padding: 19px 15px;
+                    width: 100%;
+                    color: rgba(255, 255, 255, 0.20);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+
+                    &::placeholder {
+                        color: rgba(255, 255, 255, 0.20);
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                    }
+                }
+
+                .endbtnsss {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 15px;
+margin-top: 32px;
+                    .cancle {
+                        border-radius: 6px;
+                        border: 1px solid #2C2C2C;
+
+                        background: #141516;
+                        padding: 16px 25px;
+                        width: 100%;
+                        color: var(--Primary-Blue, #1777E2);
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 100%;
+                    }
+
+                    .conti {
+                        border-radius: 6px;
+                        background: var(--Primary-Blue, #1777E2);
+                        padding: 16px 25px;
+                        width: 100%;
+                        color: #FFF;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 100%;
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media(max-width:600px) {
@@ -291,15 +407,19 @@
         align-items: flex-start;
         width: 100%;
     }
-    .formbl{
+
+    .formbl {
         display: block !important;
-      }
-.main-earn .mainssss .parentbtn .reject{
-    width: 118.5px;
-}
-.main-earn .mainssss .parentbtn .approve{
-    width: 118.5px;
-}
+    }
+
+    .main-earn .mainssss .parentbtn .reject {
+        width: 118.5px;
+    }
+
+    .main-earn .mainssss .parentbtn .approve {
+        width: 118.5px;
+    }
+
     .main-earn .mainssss .parentbtn {
         margin: 0 auto;
         margin-top: 10px;
@@ -308,14 +428,17 @@
     .main-earn .mainssss .nav.nav-pills {
         width: 100%;
     }
+
     .main-earn .formbl .pagi {
         justify-content: center;
-   
+
     }
+
     .main-earn .maincard {
         display: none;
     }
-    .formobilepegi{
+
+    .formobilepegi {
         display: block !important;
     }
 
@@ -413,6 +536,7 @@
 
                 .inner {
                     width: 50%;
+
                     .innercontent {
                         margin-bottom: 27px;
                         width: 50%;
@@ -469,4 +593,3 @@
         }
     }
 }
-

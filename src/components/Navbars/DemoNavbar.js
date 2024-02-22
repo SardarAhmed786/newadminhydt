@@ -43,6 +43,7 @@ function Header(props) {
   const sidebarToggle = React.useRef();
   const location = useLocation();
   const { account } = useWeb3React();
+
   const toggle = () => {
     if (isOpen) {
       setColor("transparent");
@@ -162,7 +163,7 @@ function Header(props) {
             }
            
           }).catch(async function (error) {
-            setLoader(false)
+            // setLoader(false)
             toast.error(error?.response?.data?.message)
             const connectorId = window.localStorage.getItem("connectorId")
             await logout(connectorId);

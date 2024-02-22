@@ -25,12 +25,22 @@ const Allusers = () => {
                 return;
             }
         }
-        const params = {
-            offset,
-            [userName]: walletAddress,
-            limit: 10
+        let params;
+        if(walletAddress){
+            params = {
+                offset: 1,
+                [userName]: walletAddress,
+                limit: 100
 
-        };
+            };
+        }else{
+            params = {
+                offset,
+                limit: 10
+
+            };
+        }
+         
         axios
             .get(Envirnoment.apiUrl + 'users/get-users-list', {
                 headers: {
@@ -52,6 +62,13 @@ const Allusers = () => {
                 // setIsConfirmLoading(false);
             });
     }
+    useEffect(() => {
+        if(account && accessToken){
+              getSearchFunc()
+        }
+      
+    }, [account, accessToken, offset])
+    
     console.log('searchData', searchData);
 
     return (
@@ -84,7 +101,9 @@ const Allusers = () => {
                                     </div>
                                 </div>
                                 <div className='right'>
-                                    <button onClick={getSearchFunc} disabled={(!walletAddress || walletAddress === '') || userName === 'Select'} className={walletAddress && userName !== 'Select' ? '' : 'disable'}>Search</button>
+                                    <button onClick={getSearchFunc} disabled={userName === 'Select'} className={ userName !== 'Select' ? '' : 'disable'}>Search</button>
+
+                                    {/* <button onClick={getSearchFunc} disabled={(!walletAddress || walletAddress === '') || userName === 'Select'} className={walletAddress && userName !== 'Select' ? '' : 'disable'}>Search</button> */}
                                 </div>
                             </div>
                             {searchData?.users?.length === 0 ? <h2 className='text-center py-5'>Data Not Found !</h2>  : 
@@ -119,7 +138,7 @@ const Allusers = () => {
                                     return (
                                         <div className="parent one">
                                             <div className="first">
-                                                <h4>{item?.userName}</h4>
+                                                <h4>{item?.userName || 'N/A'}</h4>
                                                 <p>{item?.walletAddress?.slice(0, 5)}...{item?.walletAddress?.slice(-4)}</p>
                                             </div>
                                             <div className="second">
@@ -127,10 +146,10 @@ const Allusers = () => {
 
                                             </div>
                                             <div className="third">
-                                                <h4>{parseFloat(item?.totalStakedAmount || 0)?.toFixed(4)} <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
+                                                <h4>{parseFloat(item?.totalStakedAmount || 0)?.toFixed(4)} <span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid pl-1" /></span></h4>
                                             </div>
                                             <div className="fourth">
-                                                <h4>{item?.reward?.totalReward}<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></h4>
+                                                <h4>{item?.reward?.totalReward}<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid pl-1" /></span></h4>
 
                                             </div>
                                             <div className="five">
@@ -164,143 +183,72 @@ const Allusers = () => {
                                     </div>
                                 </div>
                             </div>
-}
+                            } {searchData?.users?.map((item) => {
+                                const dateString = item?.createdAt;
+                                const date = new Date(dateString);
+
+                                // Format the date in the desired format "09/02/2024 3:00 PM"
+                                const formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()} ${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
+
+                                return (
                             <div className="formobilecard d-none">
                                 <div className='parents'>
                                     <div className='lefts'>
                                         <h3>User</h3>
-                                        <p>Damon Holland</p>
+                                                <p>{item?.userName || 'N/A'}</p>
                                     </div>
                                     <div className='rights'>
                                         <h3>Wallet Address</h3>
-                                        <p>0x12BB....JHE9</p>
+                                                <p>{item?.walletAddress?.slice(0, 5)}...{item?.walletAddress?.slice(-4)}</p>
                                     </div>
                                 </div>
                                 <div className='parents'>
                                     <div className='lefts'>
                                         <h3>Registration Date</h3>
-                                        <p>Jan 1, 2024</p>
+                                                <p>{formattedDate}</p>
                                     </div>
                                     <div className='rights'>
                                         <h3>Total HYDT Staked</h3>
-                                        <p>1000<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
+                                                <p>{parseFloat(item?.totalStakedAmount || 0)?.toFixed(4)}<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
                                     </div>
                                 </div>
                                 <div className='parents'>
                                     <div className='lefts'>
 
                                         <h3>Commission Earned</h3>
-                                        <p>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
+                                                <p>{item?.reward?.totalReward}<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
                                     </div>
                                     <div className='rights'>
                                         <h3>Level 1 Referral</h3>
-                                        <p>100</p>
+                                                <p>{item?.directRefferals}</p>
                                     </div>
                                 </div>
                                 <div className='parents'>
 
                                     <div className='rights'>
                                         <h3>Indirect Referral</h3>
-                                        <p>500</p>
+                                                <p>{item?.indirectRefferals}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="formobilecard d-none">
-                                <div className='parents'>
-                                    <div className='lefts'>
-                                        <h3>User</h3>
-                                        <p>Damon Holland</p>
-                                    </div>
-                                    <div className='rights'>
-                                        <h3>Wallet Address</h3>
-                                        <p>0x12BB....JHE9</p>
-                                    </div>
-                                </div>
-                                <div className='parents'>
-                                    <div className='lefts'>
-                                        <h3>Registration Date</h3>
-                                        <p>Jan 1, 2024</p>
-                                    </div>
-                                    <div className='rights'>
-                                        <h3>Total HYDT Staked</h3>
-                                        <p>1000<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
-                                    </div>
-                                </div>
-                                <div className='parents'>
-                                    <div className='lefts'>
-
-                                        <h3>Commission Earned</h3>
-                                        <p>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
-                                    </div>
-                                    <div className='rights'>
-                                        <h3>Level 1 Referral</h3>
-                                        <p>100</p>
-                                    </div>
-                                </div>
-                                <div className='parents'>
-
-                                    <div className='rights'>
-                                        <h3>Indirect Referral</h3>
-                                        <p>500</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="formobilecard d-none">
-                                <div className='parents'>
-                                    <div className='lefts'>
-                                        <h3>User</h3>
-                                        <p>Damon Holland</p>
-                                    </div>
-                                    <div className='rights'>
-                                        <h3>Wallet Address</h3>
-                                        <p>0x12BB....JHE9</p>
-                                    </div>
-                                </div>
-                                <div className='parents'>
-                                    <div className='lefts'>
-                                        <h3>Registration Date</h3>
-                                        <p>Jan 1, 2024</p>
-                                    </div>
-                                    <div className='rights'>
-                                        <h3>Total HYDT Staked</h3>
-                                        <p>1000<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
-                                    </div>
-                                </div>
-                                <div className='parents'>
-                                    <div className='lefts'>
-
-                                        <h3>Commission Earned</h3>
-                                        <p>100<span>HYDT <img src="\assests\Group3.svg" alt="img" className="img-fluid" /></span></p>
-                                    </div>
-                                    <div className='rights'>
-                                        <h3>Level 1 Referral</h3>
-                                        <p>100</p>
-                                    </div>
-                                </div>
-                                <div className='parents'>
-
-                                    <div className='rights'>
-                                        <h3>Indirect Referral</h3>
-                                        <p>500</p>
-                                    </div>
-                                </div>
-                            </div>
+                                )
+                            })}
                             <div className="pagi formbl">
                                 <div className="left">
                                 </div>
                                 <div className="right">
                                     <div className='arrows'>
-                                        <img src='\assests\pagi.svg' alt='1mg' className='img-fluid' />
+                                        <img onClick={() => offset > 1 ? setOffset(offset - 1) : null} src='\assests\pagi.svg' alt='1mg' className={offset > 1 ? 'img-fluid cp' : 'img-fluid disable'} />
 
                                     </div>
                                     <Pagination>
-                                        <Pagination.Item active>{1}</Pagination.Item>
+                                        <Pagination.Item active>{offset}</Pagination.Item>
                                         <Pagination.Item>/</Pagination.Item>
-                                        <Pagination.Item >{10}</Pagination.Item>
+                                        <Pagination.Item >{searchData?.pages}</Pagination.Item>
 
                                     </Pagination>
                                     <div className='arrows'>
-                                        <img src='\assests\pagiright.svg' alt='1mg' className='img-fluid' />
+                                        <img onClick={() => offset < searchData?.pages ? setOffset(offset + 1) : null} src='\assests\pagiright.svg' alt='1mg' className={offset < searchData?.pages ? 'img-fluid cp' : 'img-fluid disable'} />
 
                                     </div>
                                 </div>

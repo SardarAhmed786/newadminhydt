@@ -194,6 +194,7 @@ const Earn = () => {
       for (var i = 0; i < aprRejDataArr?.length; i++) {
         approve(aprRejDataArr[i], statVal);
       }
+      handleClose();
     } else {
       toast.error("Invalid private key");
       return;

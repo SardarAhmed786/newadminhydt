@@ -135,8 +135,8 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {parseFloat(
-                              adminData?.commissions?.approved[0]
-                                ?.noVestingAmount || 0
+                              (adminData?.commissions?.approved[0]
+                                ?.noVestingAmount || 0) * hygtComRate
                             )?.toFixed(4)}{" "}
                             <span>
                               (No Vesting) HYGT{" "}
@@ -207,8 +207,8 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {parseFloat(
-                              adminData?.commissions?.pending[0]
-                                ?.noVestingAmount || 0
+                              (adminData?.commissions?.pending[0]
+                                ?.noVestingAmount || 0) * hygtComRate
                             )?.toFixed(4)}{" "}
                             <span>
                               (No Vesting) HYGT{" "}
@@ -221,8 +221,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {parseFloat(
-                              adminData?.commissions?.pending[0]
-                                ?.threeMonthsVestingAmount || 0
+                              (adminData?.commissions?.pending[0]
+                                ?.threeMonthsVestingAmount || 0) *
+                                2.5 *
+                                hygtComRate
                             )?.toFixed(4)}{" "}
                             <span>
                               (3 Months (2.5x) HYGT){" "}
@@ -235,8 +237,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {parseFloat(
-                              adminData?.commissions?.pending[0]
-                                ?.twelveMonthsVestingAmount || 0
+                              (adminData?.commissions?.pending[0]
+                                ?.twelveMonthsVestingAmount || 0) *
+                                hygtComRate *
+                                25
                             )?.toFixed(4)}{" "}
                             <span>
                               12 Months (25x) HYGT{" "}

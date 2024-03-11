@@ -186,7 +186,7 @@ function Dashboard({ bool }) {
                   <div className="col-xl-4 col-12 padd-sm">
                     <div className="inner-card">
                       <div className="upper-head">
-                        <h6>HYDT/USD Rate</h6>
+                        <h6>Commissions Pending Approval</h6>
                         {/* <button className="btn-transparent">Claim</button> */}
                       </div>
                       <div className="bottom-content">

@@ -6,13 +6,13 @@
  */
 export const setupNetwork = async () => {
   // const provider = ((window.ethereum != null) ? new ethers.providers.Web3Provider(window.ethereum) : ethers.providers.getDefaultProvider());
-  const provider = (window).ethereum
+  const provider = window.ethereum;
   if (provider) {
-    const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
+    const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10);
     // const chainId = 4
     try {
       await provider.request({
-        method: 'wallet_switchEthereumChain',
+        method: "wallet_switchEthereumChain",
         params: [
           {
             chainId: `0x${chainId.toString(16)}`,
@@ -26,17 +26,19 @@ export const setupNetwork = async () => {
             // blockExplorerUrls: ['https://rinkeby.etherscan.com/'],
           },
         ],
-      })
-      return true
+      });
+      return true;
     } catch (error) {
-      console.error(error)
-      return false
+      console.error(error);
+      return false;
     }
   } else {
-    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined")
-    return false
+    console.error(
+      "Can't setup the BSC network on metamask because window.ethereum is undefined"
+    );
+    return false;
   }
-}
+};
 /**
  * Prompt the user to add a custom token to metamask
  * @param tokenAddress
@@ -49,12 +51,12 @@ export const registerToken = async (
   tokenAddress,
   tokenSymbol,
   tokenDecimals,
-  tokenImage,
+  tokenImage
 ) => {
-  const tokenAdded = await (window).ethereum.request({
-    method: 'wallet_watchAsset',
+  const tokenAdded = await window.ethereum.request({
+    method: "wallet_watchAsset",
     params: {
-      type: 'ERC20',
+      type: "ERC20",
       options: {
         address: tokenAddress,
         symbol: tokenSymbol,
@@ -62,7 +64,7 @@ export const registerToken = async (
         image: tokenImage,
       },
     },
-  })
+  });
 
-  return tokenAdded
-}
+  return tokenAdded;
+};

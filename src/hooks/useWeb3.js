@@ -16,7 +16,6 @@ const useWeb3 = () => {
     provider ? new Web3(connector.provider) : getWeb3NoAccount()
   );
 
-
   useEffect(() => {
     if (provider !== refEth.current) {
       // if (connector === 'WalletConnect') {
@@ -27,7 +26,6 @@ const useWeb3 = () => {
       // }
       setweb3(provider ? new Web3(connector.provider) : getWeb3NoAccount());
       refEth.current = provider;
-
     }
   }, [provider, connector, web3]);
 

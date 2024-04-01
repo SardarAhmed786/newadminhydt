@@ -141,10 +141,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {adminData?.commissions?.approved[0]
-                              ?.noVestingAmount && hygtComRate
+                              ?.noVestingAmount
                               ? parseFloat(
-                                  (adminData?.commissions?.approved[0]
-                                    ?.noVestingAmount || 0) * hygtComRate
+                                  adminData?.commissions?.approved[0]
+                                    ?.noVestingAmount || 0
                                 )?.toFixed(4)
                               : 0}
 
@@ -163,12 +163,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {adminData?.commissions?.approved[0]
-                              ?.threeMonthsVestingAmount && hygtComRate
+                              ?.threeMonthsVestingAmount
                               ? parseFloat(
-                                  (adminData?.commissions?.approved[0]
-                                    ?.threeMonthsVestingAmount || 0) *
-                                    2.5 *
-                                    hygtComRate
+                                  adminData?.commissions?.approved[0]
+                                    ?.threeMonthsVestingAmount || 0
                                 )?.toFixed(4)
                               : 0}
                             {/* {parseFloat(
@@ -188,12 +186,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {adminData?.commissions?.approved[0]
-                              ?.twelveMonthsVestingAmount && hygtComRate
+                              ?.twelveMonthsVestingAmount
                               ? parseFloat(
-                                  (adminData?.commissions?.approved[0]
-                                    ?.twelveMonthsVestingAmount || 0) *
-                                    25 *
-                                    hygtComRate
+                                  adminData?.commissions?.approved[0]
+                                    ?.twelveMonthsVestingAmount || 0
                                 )?.toFixed(4)
                               : 0}
                             {/* {parseFloat(
@@ -246,11 +242,10 @@ function Dashboard({ bool }) {
                             </span>
                           </h6>
                           <h6>
-                            {adminData?.commissions?.pending[0]
-                              ?.noVestingAmount && hygtComRate
+                            {adminData?.commissions?.pending[0]?.noVestingAmount
                               ? parseFloat(
-                                  (adminData?.commissions?.pending[0]
-                                    ?.noVestingAmount || 0) * hygtComRate
+                                  adminData?.commissions?.pending[0]
+                                    ?.noVestingAmount || 0
                                 )?.toFixed(4)
                               : 0}
                             {/* {parseFloat(
@@ -268,12 +263,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {adminData?.commissions?.pending[0]
-                              ?.threeMonthsVestingAmount && hygtComRate
+                              ?.threeMonthsVestingAmount
                               ? parseFloat(
-                                  (adminData?.commissions?.pending[0]
-                                    ?.threeMonthsVestingAmount || 0) *
-                                    2.5 *
-                                    hygtComRate
+                                  adminData?.commissions?.pending[0]
+                                    ?.threeMonthsVestingAmount || 0
                                 )?.toFixed(4)
                               : 0}
 
@@ -294,12 +287,10 @@ function Dashboard({ bool }) {
                           </h6>
                           <h6>
                             {adminData?.commissions?.pending[0]
-                              ?.twelveMonthsVestingAmount && hygtComRate
+                              ?.twelveMonthsVestingAmount
                               ? parseFloat(
-                                  (adminData?.commissions?.pending[0]
-                                    ?.twelveMonthsVestingAmount || 0) *
-                                    hygtComRate *
-                                    25
+                                  adminData?.commissions?.pending[0]
+                                    ?.twelveMonthsVestingAmount || 0
                                 )?.toFixed(4)
                               : 0}
                             {/* {parseFloat(

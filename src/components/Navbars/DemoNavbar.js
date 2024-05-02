@@ -3,11 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import ConnectWallet from "../modals/connectWallet";
 import useAuth from "../../hooks/useAuth";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
 import Signature from "../../hooks/userSign";
-import Envirnoment from '../../utils/environment'
+import Envirnoment from "../../utils/environment";
 import {
   Collapse,
   Navbar,
@@ -34,12 +34,12 @@ function Header(props) {
   }
   // const images = importAll(
   //   require.context("assets/img/dashboardimg", false, /\.(png|jpe?g|svg)$/)
-  // ); 
+  // );
   const [isOpen, setIsOpen] = React.useState(false);
   const [brandName, setbrandName] = React.useState();
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
-  const { userSign } = Signature()
+  const { userSign } = Signature();
   const sidebarToggle = React.useRef();
   const location = useLocation();
   const { account } = useWeb3React();
@@ -94,9 +94,9 @@ function Header(props) {
   }, [location]);
   const { login, logout } = useAuth();
   const connectMetamask = async () => {
-    handleClose1()
+    handleClose1();
     if (account) {
-      const connectorId = window.localStorage.getItem("connectorId")
+      const connectorId = window.localStorage.getItem("connectorId");
       await logout(connectorId);
       localStorage.removeItem("connectorId");
       localStorage.removeItem("flag");
@@ -107,12 +107,12 @@ function Header(props) {
     }
   };
   const trustWallet = async () => {
-    handleClose1()
+    handleClose1();
     if (account) {
       await logout("walletconnect");
     } else {
       login("walletconnect");
-      localStorage.setItem('connectorId', 'walletconnect');
+      localStorage.setItem("connectorId", "walletconnect");
       localStorage.setItem("flag", "true");
     }
   };
@@ -125,68 +125,73 @@ function Header(props) {
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
 
-
-
   const [showdis, setShowdis] = useState(false);
 
   const handleClosedis = () => setShowdis(false);
   const handleShowdis = () => setShowdis(true);
-  console.log("ddddd",account);
+  console.log("ddddd", account);
   const signIn = async () => {
     if (account) {
       // setLoader(true)
       try {
-        const sign = await userSign(account?.toString());  
-              let data = {
-          sign: sign?.toLowerCase(), walletAddress: account?.toLowerCase()
-        }
+        const sign = await userSign(account?.toString());
+        let data = {
+          sign: sign?.toLowerCase(),
+          walletAddress: account?.toLowerCase(),
+        };
         var config = {
           method: "post",
           url: `${Envirnoment.apiUrl}auth/signin`,
-          data: data
+          data: data,
         };
         axios(config)
           .then(async function (response) {
-            if (response?.data?.data?.role === 'user'){
-              const connectorId = window.localStorage.getItem("connectorId")
+            if (response?.data?.data?.role === "user") {
+              const connectorId = window.localStorage.getItem("connectorId");
               await logout(connectorId);
-              localStorage.setItem("flag", false)
-              localStorage.clear()
-              toast.error('Admin Access Denied')
-            }else{
+              localStorage.setItem("flag", false);
+              localStorage.clear();
+              toast.error("Admin Access Denied");
+            } else {
               // setLoader(false)
               toast.success(response?.data?.message);
-              localStorage.setItem('accessToken', response?.data?.data?.accessToken)
-              localStorage.setItem("refreshToken", response?.data?.data?.refreshToken);
-              localStorage.setItem('user', JSON.stringify(response?.data?.data))
-               props.setBool(!props.bool)
+              localStorage.setItem(
+                "accessToken",
+                response?.data?.data?.accessToken
+              );
+              localStorage.setItem(
+                "refreshToken",
+                response?.data?.data?.refreshToken
+              );
+              localStorage.setItem(
+                "user",
+                JSON.stringify(response?.data?.data)
+              );
+              props.setBool(!props.bool);
             }
-           
-          }).catch(async function (error) {
+          })
+          .catch(async function (error) {
             // setLoader(false)
-            toast.error(error?.response?.data?.message)
-            const connectorId = window.localStorage.getItem("connectorId")
+            toast.error(error?.response?.data?.message);
+            const connectorId = window.localStorage.getItem("connectorId");
             await logout(connectorId);
-            localStorage.setItem("flag", false)
+            localStorage.setItem("flag", false);
           });
       } catch (error) {
         // console.log('error', error)
-        toast.error('User Denied Sign')
+        toast.error("User Denied Sign");
         // setLoader(false)
-       
       }
     }
-  }
+  };
   useEffect(() => {
     if (account) {
-      let user = JSON.parse(localStorage.getItem("user"))
+      let user = JSON.parse(localStorage.getItem("user"));
       if (!user) {
-        signIn()
+        signIn();
       }
-
     }
-
-  }, [account])
+  }, [account]);
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <div className="main-navbar">
@@ -201,7 +206,7 @@ function Header(props) {
           props.location.pathname.indexOf("full-screen-maps") !== -1
             ? "navbar-absolute fixed-top"
             : "navbar-absolute fixed-top " +
-            (color === "transparent" ? "navbar-transparent " : "")
+              (color === "transparent" ? "navbar-transparent " : "")
         }
       >
         <Container fluid className="main-header-top-change p-0">
@@ -209,7 +214,12 @@ function Header(props) {
             <img src="\logo.svg" alt="img" className="img-fluid" />
           </div>
           <div className="navbar-wrapper">
-            <img src="\assests\wallet-connect.svg" alt="img" className="img-fluid mr-2 wallet-btn-sm d-none" onClick={handleShowdis} />
+            <img
+              src="\assests\wallet-connect.svg"
+              alt="img"
+              className="img-fluid mr-2 wallet-btn-sm d-none"
+              onClick={handleShowdis}
+            />
             <div className="navbar-toggle">
               <button
                 type="button"
@@ -230,7 +240,7 @@ function Header(props) {
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
           </NavbarToggler> */}
-          {console.log("sssssss",account)}
+          {console.log("sssssss", account)}
           <Collapse isOpen={isOpen} navbar className="justify-content-end">
             <div className="twice-btn">
               {/* <button
@@ -243,9 +253,15 @@ function Header(props) {
               <button
                 type="button"
                 className="btn-wallet mr-4"
-                onClick={() => { account ? setShowdis(true) : handleShow() }}
+                onClick={() => {
+                  account ? setShowdis(true) : handleShow();
+                }}
               >
-                <img src="\assests\buttonsvgs\connectwallet.svg" alt="img" className="img-fluid mr-2" />
+                <img
+                  src="\assests\buttonsvgs\connectwallet.svg"
+                  alt="img"
+                  className="img-fluid mr-2"
+                />
                 {account ? "Disconnect Wallet" : "Connect Wallet"}
               </button>
             </div>
@@ -253,39 +269,85 @@ function Header(props) {
         </Container>
       </Navbar>
 
-      <Modal className="connectwallet-modal" show={show} onHide={handleClose} centered>
+      <Modal
+        className="connectwallet-modal"
+        show={show}
+        onHide={handleClose}
+        centered
+      >
         <Modal.Body>
           <div className="main-body">
             <h4>Please connect your wallet to continue</h4>
-            <h6>Required network <img src="\assests\buttonsvgs\bnb-icon.svg" alt="img" className="img-fluid mx-2" />BNB Chain</h6>
+            <h6>
+              Required network{" "}
+              <img
+                src="\assests\buttonsvgs\bnb-icon.svg"
+                alt="img"
+                className="img-fluid mx-2"
+              />
+              BNB Chain
+            </h6>
             <button
               type="button"
               className="btn-wallet m-auto block w-100"
               onClick={() => {
-                handleShow1()
-                handleClose()
+                handleShow1();
+                handleClose();
               }}
             >
-              <img src="\assests\buttonsvgs\connectwallet.svg" alt="img" className="img-fluid mr-2" />
+              <img
+                src="\assests\buttonsvgs\connectwallet.svg"
+                alt="img"
+                className="img-fluid mr-2"
+              />
               {account ? "Disconnect Wallet" : "Connect Wallet"}
             </button>
           </div>
         </Modal.Body>
       </Modal>
-      <Modal className="connectwallet-modal" show={account ? show1 : true} onHide={handleClose1} centered>
+      <Modal
+        className="connectwallet-modal"
+        show={account ? show1 : true}
+        onHide={handleClose1}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Connect Wallet</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="connect-btns">
-            <button onClick={()=>{connectMetamask(); setShow1(false)}}><img src="\assests\buttonsvgs\metamask.svg" alt="img" className="img-fluid mr-2" />Metamask</button>
-            <button onClick={trustWallet}><img src="\assests\buttonsvgs\walletconnect.svg" alt="img" className="img-fluid mr-2" />WalletConnect</button>
+            <button
+              onClick={() => {
+                connectMetamask();
+                setShow1(false);
+              }}
+            >
+              <img
+                src="\assests\buttonsvgs\metamask.svg"
+                alt="img"
+                className="img-fluid mr-2"
+              />
+              Metamask
+            </button>
+            <button onClick={trustWallet}>
+              <img
+                src="\assests\buttonsvgs\walletconnect.svg"
+                alt="img"
+                className="img-fluid mr-2"
+              />
+              WalletConnect
+            </button>
           </div>
         </Modal.Body>
       </Modal>
 
       {/* showdis */}
-      <Offcanvas className="disconnect-modal" placement="bottom" show={showdis} onHide={handleClosedis}>
+      <Offcanvas
+        className="disconnect-modal"
+        placement="bottom"
+        show={showdis}
+        onHide={handleClosedis}
+      >
         <Offcanvas.Header closeButton onClick={() => setShowdis(false)}>
           <Offcanvas.Title>Wallet</Offcanvas.Title>
         </Offcanvas.Header>
@@ -298,13 +360,20 @@ function Header(props) {
                 <img src="\assests\copy.svg" alt="img" className="img-fluid" />
               </div>
               <div className="disconnect-btn">
-                <button onClick={() => { setShowdis(false); connectMetamask() ; localStorage.clear() }}>Disconnect Wallet</button>
+                <button
+                  onClick={() => {
+                    setShowdis(false);
+                    connectMetamask();
+                    localStorage.clear();
+                  }}
+                >
+                  Disconnect Wallet
+                </button>
               </div>
             </div>
           </div>
         </Offcanvas.Body>
       </Offcanvas>
-
     </div>
   );
 }

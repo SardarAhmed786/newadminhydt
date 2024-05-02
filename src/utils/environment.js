@@ -20,7 +20,7 @@ let Environment = {
     "https://api.studio.thegraph.com/query/4177/hydt-sepolia/version/latest",
 
   // apiUrl: "http://ec2-18-236-118-29.us-west-2.compute.amazonaws.com:5555/",
-  apiUrl: "hydtapi.quecko.com/",
+  apiUrl: "https://hydtapi.quecko.com/",
 };
 
 export default Environment;

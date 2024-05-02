@@ -129,7 +129,6 @@ function Header(props) {
 
   const handleClosedis = () => setShowdis(false);
   const handleShowdis = () => setShowdis(true);
-  console.log("ddddd", account);
   const signIn = async () => {
     if (account) {
       // setLoader(true)

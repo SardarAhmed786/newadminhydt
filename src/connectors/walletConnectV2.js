@@ -14,8 +14,8 @@ export const [walletConnectV2, hooks] = initializeConnector(
       actions,
       options: {
         projectId: "14808831369ecdaaab7b8869eb13c6b0",
-        chains: [5],
-        optionalChains: [5],
+        chains: [56],
+        optionalChains: [56],
         showQrModal: true
       },
       timeout: 10000,

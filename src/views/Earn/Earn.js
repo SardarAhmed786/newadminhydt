@@ -89,6 +89,8 @@ const Earn = () => {
     handleClose();
     console.log("approve", data, action);
     const currentTimeEpoch = Math.floor(Date.now() / 1000);
+    let chainId = await web3.eth.chainId()
+    console.log(chainId, 'chainId')
     let dataArr = [
       data?.user?.walletAddress,
       parseFloat(data?.amount)?.toFixed(4) * 1e18,
@@ -125,6 +127,10 @@ const Earn = () => {
       {
         t: "uint256",
         v: currentTimeEpoch,
+      },
+      {
+        t: "uint256",
+        v: chainId,
       }
     );
 

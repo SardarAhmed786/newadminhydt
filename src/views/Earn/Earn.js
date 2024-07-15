@@ -89,8 +89,7 @@ const Earn = () => {
     handleClose();
     console.log("approve", data, action);
     const currentTimeEpoch = Math.floor(Date.now() / 1000);
-    let chainId = await web3.eth.chainId()
-    console.log(chainId, 'chainId')
+    let chainId =  process.env.REACT_APP_CHAIN_ID
     let dataArr = [
       data?.user?.walletAddress,
       parseFloat(data?.amount)?.toFixed(4) * 1e18,

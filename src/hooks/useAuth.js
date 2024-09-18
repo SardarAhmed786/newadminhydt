@@ -18,7 +18,7 @@ const useAuth = () => {
     if (connector) {
       console.log("connector", connector);
 
-      await connector.activate(11155111);
+      await connector.activate(56);
     } else {
       toastError("Can't find connector", "The connector config is wrong");
     }

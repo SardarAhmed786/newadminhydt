@@ -9,10 +9,7 @@ const useAuth = () => {
   const login = async (connectorID) => {
     console.log("---------->", connectorID);
 
-    // console.log("---------->", connectorsByName);
-
-    // console.log("AAAAAA", connectorID)
-
+    
     const connector = connectorsByName[connectorID];
     // console.log("---------->", connector);
     if (connector) {

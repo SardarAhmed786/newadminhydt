@@ -1,6 +1,6 @@
 let Environment = {
   ControlAbi: "0x213275D6bCB4143A81CceCf69fB64634c9A4EBb0",
-  EarnAbi: "0xAdDc1AC89803c26aB712F6135330aB802F0CB89A",
+  EarnAbi: "0x2eD7a988cbB8455daad1b8c193b4e7c826af49cF",
   FarmAbi: "0xf1df548bd07c8a3f8AE19ad33bB54570Fe20d96b",
   ReserveAbi: "0x7FabF2fb24e6177749cc3312f8D80D16fc5e4a6d",
 
@@ -20,7 +20,7 @@ let Environment = {
     "https://api.studio.thegraph.com/query/4177/hydt-sepolia/version/latest",
 
   // apiUrl: "http://ec2-18-236-118-29.us-west-2.compute.amazonaws.com:5555/",
-  apiUrl: "https://prod-api.hydtprotocol.com/",
+  apiUrl: "https://hydtauditedapi.quecko.com/",
 };
 
 export default Environment;
